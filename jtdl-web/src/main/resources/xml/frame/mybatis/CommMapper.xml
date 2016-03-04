@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdpzsp.frame.bo.CommMapper">
+
+	<select id="getSysdate" resultType="java.sql.Timestamp">
+		select now()
+	</select>
+	<select id="getNextval" parameterType="map" resultType="long">
+		select nextval('${seqName}')
+	</select>
+	
+	<select id="getNextvalSet" parameterType="map" resultType="long">
+		select nextval_set('${seqName}','${val}')
+	</select>
+</mapper>

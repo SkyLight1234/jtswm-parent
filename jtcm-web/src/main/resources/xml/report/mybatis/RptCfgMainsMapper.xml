@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.com.zdpzsp.report.bo.RptCfgMainsMapper" >
+  <resultMap id="BaseResultMap" type="com.zdpzsp.report.bo.RptCfgMains" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="rpt_code" property="rpt_code" jdbcType="VARCHAR" />
+    <result column="rpt_name" property="rpt_name" jdbcType="VARCHAR" />
+    <result column="dir_type" property="dir_type" jdbcType="INTEGER" />
+    <result column="up_rpt_id" property="up_rpt_id" jdbcType="BIGINT" />
+    <result column="rpt_url" property="rpt_url" jdbcType="VARCHAR" />
+    <result column="rpt_type" property="rpt_type" jdbcType="VARCHAR" />
+    <result column="main_sql" property="main_sql" jdbcType="VARCHAR" />
+    <result column="is_used" property="is_used" jdbcType="TINYINT" />
+    <result column="created_at" property="created_at" jdbcType="BIGINT" />
+    <result column="creator_id" property="creator_id" jdbcType="BIGINT" />
+    <result column="updated_at" property="updated_at" jdbcType="BIGINT" />
+    <result column="updater_id" property="updater_id" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, rpt_code, rpt_name, dir_type, up_rpt_id, rpt_url, rpt_type, main_sql, is_used, 
+    created_at, creator_id, updated_at, updater_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zdpzsp.report.bo.RptCfgMainsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from rpt_cfg_mains
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from rpt_cfg_mains
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from rpt_cfg_mains
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zdpzsp.report.bo.RptCfgMainsExample" >
+    delete from rpt_cfg_mains
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zdpzsp.report.bo.RptCfgMains" >
+    insert into rpt_cfg_mains (id, rpt_code, rpt_name, 
+      dir_type, up_rpt_id, rpt_url, 
+      rpt_type, main_sql, is_used, 
+      created_at, creator_id, updated_at, 
+      updater_id)
+    values (#{id,jdbcType=BIGINT}, #{rpt_code,jdbcType=VARCHAR}, #{rpt_name,jdbcType=VARCHAR}, 
+      #{dir_type,jdbcType=INTEGER}, #{up_rpt_id,jdbcType=BIGINT}, #{rpt_url,jdbcType=VARCHAR}, 
+      #{rpt_type,jdbcType=VARCHAR}, #{main_sql,jdbcType=VARCHAR}, #{is_used,jdbcType=TINYINT}, 
+      #{created_at,jdbcType=BIGINT}, #{creator_id,jdbcType=BIGINT}, #{updated_at,jdbcType=BIGINT}, 
+      #{updater_id,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zdpzsp.report.bo.RptCfgMains" >
+    insert into rpt_cfg_mains
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="rpt_code != null" >
+        rpt_code,
+      </if>
+      <if test="rpt_name != null" >
+        rpt_name,
+      </if>
+      <if test="dir_type != null" >
+        dir_type,
+      </if>
+      <if test="up_rpt_id != null" >
+        up_rpt_id,
+      </if>
+      <if test="rpt_url != null" >
+        rpt_url,
+      </if>
+      <if test="rpt_type != null" >
+        rpt_type,
+      </if>
+      <if test="main_sql != null" >
+        main_sql,
+      </if>
+      <if test="is_used != null" >
+        is_used,
+      </if>
+      <if test="created_at != null" >
+        created_at,
+      </if>
+      <if test="creator_id != null" >
+        creator_id,
+      </if>
+      <if test="updated_at != null" >
+        updated_at,
+      </if>
+      <if test="updater_id != null" >
+        updater_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="rpt_code != null" >
+        #{rpt_code,jdbcType=VARCHAR},
+      </if>
+      <if test="rpt_name != null" >
+        #{rpt_name,jdbcType=VARCHAR},
+      </if>
+      <if test="dir_type != null" >
+        #{dir_type,jdbcType=INTEGER},
+      </if>
+      <if test="up_rpt_id != null" >
+        #{up_rpt_id,jdbcType=BIGINT},
+      </if>
+      <if test="rpt_url != null" >
+        #{rpt_url,jdbcType=VARCHAR},
+      </if>
+      <if test="rpt_type != null" >
+        #{rpt_type,jdbcType=VARCHAR},
+      </if>
+      <if test="main_sql != null" >
+        #{main_sql,jdbcType=VARCHAR},
+      </if>
+      <if test="is_used != null" >
+        #{is_used,jdbcType=TINYINT},
+      </if>
+      <if test="created_at != null" >
+        #{created_at,jdbcType=BIGINT},
+      </if>
+      <if test="creator_id != null" >
+        #{creator_id,jdbcType=BIGINT},
+      </if>
+      <if test="updated_at != null" >
+        #{updated_at,jdbcType=BIGINT},
+      </if>
+      <if test="updater_id != null" >
+        #{updater_id,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zdpzsp.report.bo.RptCfgMainsExample" resultType="java.lang.Integer" >
+    select count(*) from rpt_cfg_mains
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update rpt_cfg_mains
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.rpt_code != null" >
+        rpt_code = #{record.rpt_code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rpt_name != null" >
+        rpt_name = #{record.rpt_name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dir_type != null" >
+        dir_type = #{record.dir_type,jdbcType=INTEGER},
+      </if>
+      <if test="record.up_rpt_id != null" >
+        up_rpt_id = #{record.up_rpt_id,jdbcType=BIGINT},
+      </if>
+      <if test="record.rpt_url != null" >
+        rpt_url = #{record.rpt_url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rpt_type != null" >
+        rpt_type = #{record.rpt_type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.main_sql != null" >
+        main_sql = #{record.main_sql,jdbcType=VARCHAR},
+      </if>
+      <if test="record.is_used != null" >
+        is_used = #{record.is_used,jdbcType=TINYINT},
+      </if>
+      <if test="record.created_at != null" >
+        created_at = #{record.created_at,jdbcType=BIGINT},
+      </if>
+      <if test="record.creator_id != null" >
+        creator_id = #{record.creator_id,jdbcType=BIGINT},
+      </if>
+      <if test="record.updated_at != null" >
+        updated_at = #{record.updated_at,jdbcType=BIGINT},
+      </if>
+      <if test="record.updater_id != null" >
+        updater_id = #{record.updater_id,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update rpt_cfg_mains
+    set id = #{record.id,jdbcType=BIGINT},
+      rpt_code = #{record.rpt_code,jdbcType=VARCHAR},
+      rpt_name = #{record.rpt_name,jdbcType=VARCHAR},
+      dir_type = #{record.dir_type,jdbcType=INTEGER},
+      up_rpt_id = #{record.up_rpt_id,jdbcType=BIGINT},
+      rpt_url = #{record.rpt_url,jdbcType=VARCHAR},
+      rpt_type = #{record.rpt_type,jdbcType=VARCHAR},
+      main_sql = #{record.main_sql,jdbcType=VARCHAR},
+      is_used = #{record.is_used,jdbcType=TINYINT},
+      created_at = #{record.created_at,jdbcType=BIGINT},
+      creator_id = #{record.creator_id,jdbcType=BIGINT},
+      updated_at = #{record.updated_at,jdbcType=BIGINT},
+      updater_id = #{record.updater_id,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zdpzsp.report.bo.RptCfgMains" >
+    update rpt_cfg_mains
+    <set >
+      <if test="rpt_code != null" >
+        rpt_code = #{rpt_code,jdbcType=VARCHAR},
+      </if>
+      <if test="rpt_name != null" >
+        rpt_name = #{rpt_name,jdbcType=VARCHAR},
+      </if>
+      <if test="dir_type != null" >
+        dir_type = #{dir_type,jdbcType=INTEGER},
+      </if>
+      <if test="up_rpt_id != null" >
+        up_rpt_id = #{up_rpt_id,jdbcType=BIGINT},
+      </if>
+      <if test="rpt_url != null" >
+        rpt_url = #{rpt_url,jdbcType=VARCHAR},
+      </if>
+      <if test="rpt_type != null" >
+        rpt_type = #{rpt_type,jdbcType=VARCHAR},
+      </if>
+      <if test="main_sql != null" >
+        main_sql = #{main_sql,jdbcType=VARCHAR},
+      </if>
+      <if test="is_used != null" >
+        is_used = #{is_used,jdbcType=TINYINT},
+      </if>
+      <if test="created_at != null" >
+        created_at = #{created_at,jdbcType=BIGINT},
+      </if>
+      <if test="creator_id != null" >
+        creator_id = #{creator_id,jdbcType=BIGINT},
+      </if>
+      <if test="updated_at != null" >
+        updated_at = #{updated_at,jdbcType=BIGINT},
+      </if>
+      <if test="updater_id != null" >
+        updater_id = #{updater_id,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zdpzsp.report.bo.RptCfgMains" >
+    update rpt_cfg_mains
+    set rpt_code = #{rpt_code,jdbcType=VARCHAR},
+      rpt_name = #{rpt_name,jdbcType=VARCHAR},
+      dir_type = #{dir_type,jdbcType=INTEGER},
+      up_rpt_id = #{up_rpt_id,jdbcType=BIGINT},
+      rpt_url = #{rpt_url,jdbcType=VARCHAR},
+      rpt_type = #{rpt_type,jdbcType=VARCHAR},
+      main_sql = #{main_sql,jdbcType=VARCHAR},
+      is_used = #{is_used,jdbcType=TINYINT},
+      created_at = #{created_at,jdbcType=BIGINT},
+      creator_id = #{creator_id,jdbcType=BIGINT},
+      updated_at = #{updated_at,jdbcType=BIGINT},
+      updater_id = #{updater_id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

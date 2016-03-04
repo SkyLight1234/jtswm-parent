@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.com.zdpzsp.frame.bo.View_paramMapper" >
+  <resultMap id="BaseResultMap" type="com.zdpzsp.frame.bo.View_param" >
+    <result column="code_type" property="code_type" jdbcType="VARCHAR" />
+    <result column="code_name" property="code_name" jdbcType="VARCHAR" />
+    <result column="code_desc" property="code_desc" jdbcType="VARCHAR" />
+    <result column="parent_type" property="parent_type" jdbcType="VARCHAR" />
+    <result column="code_type_alias" property="code_type_alias" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="extend_code" property="extend_code" jdbcType="VARCHAR" />
+    <result column="code_value" property="code_value" jdbcType="VARCHAR" />
+    <result column="parent_value" property="parent_value" jdbcType="VARCHAR" />
+    <result column="sort_id" property="sort_id" jdbcType="INTEGER" />
+  </resultMap>
+
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    code_type, code_name, code_desc, parent_type, code_type_alias, state, extend_code,code_value, parent_value, sort_id
+  </sql>
+
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zdpzsp.frame.bo.View_paramExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from view_param
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+
+  <select id="countByExample" parameterType="com.zdpzsp.frame.bo.View_paramExample" resultType="java.lang.Integer" >
+    select count(*) from view_param
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+ 
+</mapper>

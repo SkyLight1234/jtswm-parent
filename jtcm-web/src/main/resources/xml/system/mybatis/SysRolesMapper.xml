@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.com.zdpzsp.system.bo.SysRolesMapper" >
+  <resultMap id="BaseResultMap" type="com.zdpzsp.system.bo.SysRoles" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="role_name" property="role_name" jdbcType="VARCHAR" />
+    <result column="role_desc" property="role_desc" jdbcType="VARCHAR" />
+    <result column="is_used" property="is_used" jdbcType="TINYINT" />
+    <result column="created_at" property="created_at" jdbcType="BIGINT" />
+    <result column="creator_id" property="creator_id" jdbcType="BIGINT" />
+    <result column="updated_at" property="updated_at" jdbcType="BIGINT" />
+    <result column="updater_id" property="updater_id" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, role_name, role_desc, is_used, created_at, creator_id, updated_at, updater_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zdpzsp.system.bo.SysRolesExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_roles
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_roles
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_roles
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zdpzsp.system.bo.SysRolesExample" >
+    delete from sys_roles
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zdpzsp.system.bo.SysRoles" >
+    insert into sys_roles (id, role_name, role_desc, 
+      is_used, created_at, creator_id, 
+      updated_at, updater_id)
+    values (#{id,jdbcType=BIGINT}, #{role_name,jdbcType=VARCHAR}, #{role_desc,jdbcType=VARCHAR}, 
+      #{is_used,jdbcType=TINYINT}, #{created_at,jdbcType=BIGINT}, #{creator_id,jdbcType=BIGINT}, 
+      #{updated_at,jdbcType=BIGINT}, #{updater_id,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zdpzsp.system.bo.SysRoles" >
+    insert into sys_roles
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="role_name != null" >
+        role_name,
+      </if>
+      <if test="role_desc != null" >
+        role_desc,
+      </if>
+      <if test="is_used != null" >
+        is_used,
+      </if>
+      <if test="created_at != null" >
+        created_at,
+      </if>
+      <if test="creator_id != null" >
+        creator_id,
+      </if>
+      <if test="updated_at != null" >
+        updated_at,
+      </if>
+      <if test="updater_id != null" >
+        updater_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="role_name != null" >
+        #{role_name,jdbcType=VARCHAR},
+      </if>
+      <if test="role_desc != null" >
+        #{role_desc,jdbcType=VARCHAR},
+      </if>
+      <if test="is_used != null" >
+        #{is_used,jdbcType=TINYINT},
+      </if>
+      <if test="created_at != null" >
+        #{created_at,jdbcType=BIGINT},
+      </if>
+      <if test="creator_id != null" >
+        #{creator_id,jdbcType=BIGINT},
+      </if>
+      <if test="updated_at != null" >
+        #{updated_at,jdbcType=BIGINT},
+      </if>
+      <if test="updater_id != null" >
+        #{updater_id,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zdpzsp.system.bo.SysRolesExample" resultType="java.lang.Integer" >
+    select count(*) from sys_roles
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_roles
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.role_name != null" >
+        role_name = #{record.role_name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.role_desc != null" >
+        role_desc = #{record.role_desc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.is_used != null" >
+        is_used = #{record.is_used,jdbcType=TINYINT},
+      </if>
+      <if test="record.created_at != null" >
+        created_at = #{record.created_at,jdbcType=BIGINT},
+      </if>
+      <if test="record.creator_id != null" >
+        creator_id = #{record.creator_id,jdbcType=BIGINT},
+      </if>
+      <if test="record.updated_at != null" >
+        updated_at = #{record.updated_at,jdbcType=BIGINT},
+      </if>
+      <if test="record.updater_id != null" >
+        updater_id = #{record.updater_id,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_roles
+    set id = #{record.id,jdbcType=BIGINT},
+      role_name = #{record.role_name,jdbcType=VARCHAR},
+      role_desc = #{record.role_desc,jdbcType=VARCHAR},
+      is_used = #{record.is_used,jdbcType=TINYINT},
+      created_at = #{record.created_at,jdbcType=BIGINT},
+      creator_id = #{record.creator_id,jdbcType=BIGINT},
+      updated_at = #{record.updated_at,jdbcType=BIGINT},
+      updater_id = #{record.updater_id,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zdpzsp.system.bo.SysRoles" >
+    update sys_roles
+    <set >
+      <if test="role_name != null" >
+        role_name = #{role_name,jdbcType=VARCHAR},
+      </if>
+      <if test="role_desc != null" >
+        role_desc = #{role_desc,jdbcType=VARCHAR},
+      </if>
+      <if test="is_used != null" >
+        is_used = #{is_used,jdbcType=TINYINT},
+      </if>
+      <if test="created_at != null" >
+        created_at = #{created_at,jdbcType=BIGINT},
+      </if>
+      <if test="creator_id != null" >
+        creator_id = #{creator_id,jdbcType=BIGINT},
+      </if>
+      <if test="updated_at != null" >
+        updated_at = #{updated_at,jdbcType=BIGINT},
+      </if>
+      <if test="updater_id != null" >
+        updater_id = #{updater_id,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zdpzsp.system.bo.SysRoles" >
+    update sys_roles
+    set role_name = #{role_name,jdbcType=VARCHAR},
+      role_desc = #{role_desc,jdbcType=VARCHAR},
+      is_used = #{is_used,jdbcType=TINYINT},
+      created_at = #{created_at,jdbcType=BIGINT},
+      creator_id = #{creator_id,jdbcType=BIGINT},
+      updated_at = #{updated_at,jdbcType=BIGINT},
+      updater_id = #{updater_id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
