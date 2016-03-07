@@ -20,18 +20,19 @@ public enum  ResultCode{
     user_login_pass_encrypt_err(11002,"密码解析失败"),
     user_login_pass_no_eq(11003,"密码错误"),
     user_login_user_disable(11004,"用户不可用"),
-    user_login_no_role(11005,"没有可用角色"),
-    user_login_no_menu(11006,"没有可用菜单"),
-    user_role_insert_err(11007,"用户角色添加失败"),
-    user_station_insert_err(11008,"用户岗位添加失败"),
-    //报表模块错误
-    report_no_jurisdiction(12001,"无报表查看权限"),
-    report_no_head(12002,"未获取到报表头"),
-    report_no_head_has_one(12003,"查询时查询列至少为1"),
-    report_no_org(12004,"没有组织无法查询"),
-    report_no_user_org(12005,"无权限查询此组织"),
-    //kpi模块错误
-    kpi_no_query(13001,"未找到kpi"),
+    /*  user_login_no_role(11005,"没有可用角色"),
+      user_login_no_menu(11006,"没有可用菜单"),
+      user_role_insert_err(11007,"用户角色添加失败"),
+      user_station_insert_err(11008,"用户岗位添加失败"),
+      //报表模块错误
+      report_no_jurisdiction(12001,"无报表查看权限"),
+      report_no_head(12002,"未获取到报表头"),
+      report_no_head_has_one(12003,"查询时查询列至少为1"),
+      report_no_org(12004,"没有组织无法查询"),
+      report_no_user_org(12005,"无权限查询此组织"),
+      //kpi模块错误
+      kpi_no_query(13001,"未找到kpi"),*/
+    user_email_valicate_err(11005, "请检查邮箱的是否正确，发送验证码失败"),
     ;
 
 

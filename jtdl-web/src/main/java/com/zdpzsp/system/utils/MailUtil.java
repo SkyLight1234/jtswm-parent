@@ -1,6 +1,6 @@
-package com.zdpzsp.mail.utils;
+package com.zdpzsp.system.utils;
 
-import com.zdpzsp.mail.utils.vo.EmailContent;
+import com.zdpzsp.system.utils.vo.EmailContent;
 
 import javax.mail.*;
 import javax.mail.internet.*;

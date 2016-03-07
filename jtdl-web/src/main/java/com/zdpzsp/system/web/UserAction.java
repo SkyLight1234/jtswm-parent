@@ -1,11 +1,17 @@
 package com.zdpzsp.system.web;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.zdpzsp.frame.ResultCode;
+import com.zdpzsp.frame.utils.WebUtils;
+import com.zdpzsp.system.exception.ServiceException;
 import com.zdpzsp.system.service.IUserService;
+import com.zdpzsp.system.vo.RegisterUserVo;
 import org.apache.struts2.interceptor.ServletRequestAware;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 public class UserAction extends ActionSupport implements ServletRequestAware{
 
@@ -13,14 +19,63 @@ public class UserAction extends ActionSupport implements ServletRequestAware{
 	
 	private IUserService userService;
 
-	private String roleIds;
-
-	private String stationIds;
-
-	private Long userId;
-	
 	private HttpServletRequest request;
+	private String pwd;
+	private String userName;
+	private String verifyCode;
+    private String validateCode;
+    private String email;
+    private RegisterUserVo registerUserVo;
 
+
+    public String sendValicateCode() {
+        try {
+            userService.sendValidateCode(getValidateCode(), getEmail(),request.getSession());
+            Map<String,Object> map=new HashMap<String, Object>();
+            map.put("message", "发送成功");
+            inputStream = WebUtils.succee(map);
+        } catch (ServiceException e) {
+            inputStream = WebUtils.error(e);
+            e.printStackTrace();
+        } catch (Exception e) {
+            inputStream = WebUtils.error(ResultCode.sys_err);
+            e.printStackTrace();
+        }
+        return "data";
+
+    }
+
+	public String login() {
+		try {
+			userService.login(getUserName(), getPwd(), request.getSession());
+			Map<String,Object> map=new HashMap<String, Object>();
+			map.put("message", "登录成功");
+			inputStream = WebUtils.succee(map);
+		} catch (ServiceException e) {
+			inputStream = WebUtils.error(e);
+			e.printStackTrace();
+		} catch (Exception e) {
+			inputStream = WebUtils.error(ResultCode.sys_err);
+			e.printStackTrace();
+		}
+		return "data";
+	}
+
+	public String register() {
+		try {
+			userService.register(registerUserVo);
+			Map<String,Object> map=new HashMap<String, Object>();
+			map.put("message", "注册成功");
+			inputStream = WebUtils.succee(map);
+		} catch (ServiceException e) {
+			inputStream = WebUtils.error(e);
+			e.printStackTrace();
+		} catch (Exception e) {
+			inputStream = WebUtils.error(ResultCode.sys_err);
+			e.printStackTrace();
+		}
+		return "data";
+	}
 	/*public String searchAllEnableUser()
 	{
 		try {
@@ -200,27 +255,55 @@ public class UserAction extends ActionSupport implements ServletRequestAware{
 		this.userService = userService;
 	}
 
-	public String getRoleIds() {
-		return roleIds;
+	public IUserService getUserService() {
+		return userService;
 	}
 
-	public void setRoleIds(String roleIds) {
-		this.roleIds = roleIds;
+	public String getPwd() {
+		return pwd;
 	}
 
-	public String getStationIds() {
-		return stationIds;
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
 	}
 
-	public void setStationIds(String stationIds) {
-		this.stationIds = stationIds;
+	public String getUserName() {
+		return userName;
 	}
 
-	public Long getUserId() {
-		return userId;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
+    public String getVerifyCode() {
+        return verifyCode;
+    }
+
+    public void setVerifyCode(String verifyCode) {
+        this.verifyCode = verifyCode;
+    }
+
+    public String getValidateCode() {
+        return validateCode;
+    }
+
+    public void setValidateCode(String validateCode) {
+        this.validateCode = validateCode;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public RegisterUserVo getRegisterUserVo() {
+        return registerUserVo;
+    }
+
+    public void setRegisterUserVo(RegisterUserVo registerUserVo) {
+        this.registerUserVo = registerUserVo;
+    }
 }

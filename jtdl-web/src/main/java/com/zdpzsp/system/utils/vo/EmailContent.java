@@ -1,4 +1,4 @@
-package com.zdpzsp.mail.utils.vo;
+package com.zdpzsp.system.utils.vo;
 
 /**
  * Created by Administrator on 2016/1/25 0025.

@@ -1,4 +1,4 @@
-package com.zdpzsp.mail.utils;
+package com.zdpzsp.system.utils;
 
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;

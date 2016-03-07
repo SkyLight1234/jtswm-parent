@@ -1,21 +1,84 @@
 package com.zdpzsp.system.service.impl;
 
+import com.zdpzsp.frame.FrameConst;
+import com.zdpzsp.frame.ResultCode;
+import com.zdpzsp.frame.exception.DESDecryptException;
+import com.zdpzsp.frame.utils.DES;
+import com.zdpzsp.system.SystemConst;
+import com.zdpzsp.system.bo.SysUser;
+import com.zdpzsp.system.bo.SysUserExample;
+import com.zdpzsp.system.bo.SysUserMapper;
 import com.zdpzsp.system.exception.ServiceException;
 import com.zdpzsp.system.service.IUserService;
+import com.zdpzsp.system.utils.MailUtil;
+import com.zdpzsp.system.utils.vo.EmailContent;
+import com.zdpzsp.system.vo.RegisterUserVo;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by xiaxia on 2015/11/24 .
  */
 public class UserServiceImpl implements IUserService {
 
+    private SysUserMapper sysUserMapper;
+
     @Override
-    public void register() {
+    public void register(RegisterUserVo registerUserVo) {
 
     }
 
+    public void sendValidateCode(String valicateCode,String email, HttpSession session) throws ServiceException {
+        EmailContent emailContent=new EmailContent();
+        emailContent.setSubject("验证码");
+        emailContent.setContent(valicateCode);
+        emailContent.setReceice_mail(email);
+        try {
+            MailUtil.send_email(emailContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new ServiceException(ResultCode.user_email_valicate_err);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+
    public void login(String userName, String password, HttpSession session) throws ServiceException {
+
+       if (!StringUtils.hasLength(userName)) {
+           throw new ServiceException(ResultCode.user_no_login);
+       }
+       if (!StringUtils.hasLength(userName)) {
+           throw new ServiceException(ResultCode.user_login_pass_no_eq);
+       }
+       SysUserExample example=new SysUserExample();
+       example.or().andSysAccountEqualTo(userName).andStateEqualTo(SystemConst.GobalCfg.State.enable);
+       List<SysUser> sysUsers = sysUserMapper.selectByExample(example);
+       if (CollectionUtils.isEmpty(sysUsers)) {
+           throw new ServiceException(ResultCode.user_login_no_user);
+       } else {
+           SysUser sysUser = sysUsers.get(0);
+           String decrypt = null;
+           try {
+               decrypt = DES.decrypt(sysUser.getSysPassword());
+               if (decrypt.equals(password)) {
+
+
+
+                   session.setAttribute(FrameConst.SessionNames.userInfo, sysUser);
+               }
+           } catch (DESDecryptException e) {
+               e.printStackTrace();
+               throw new ServiceException(ResultCode.user_login_pass_no_eq);
+           }
+
+       }
+
        /*  try {
             if (userName == null || password == null) {
                 //参数错误
@@ -77,5 +140,11 @@ public class UserServiceImpl implements IUserService {
     }
 
 
+    public SysUserMapper getSysUserMapper() {
+        return sysUserMapper;
+    }
 
+    public void setSysUserMapper(SysUserMapper sysUserMapper) {
+        this.sysUserMapper = sysUserMapper;
+    }
 }
