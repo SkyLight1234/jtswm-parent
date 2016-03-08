@@ -1,12 +1,19 @@
 package com.zdpzsp.system.utils;
 
+import com.zdpzsp.system.SystemConst;
+import com.zdpzsp.system.bo.SysRoles;
+import com.zdpzsp.system.service.IUserService;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by xiong on 2015/11/24.
  */
 public class UserInfoUtil {
 
-  /*  private static Map<Long,SysRoles> sysRolesMap=new HashMap<Long,SysRoles>();//角色map   key为角色id
-    private static Map<Long,SysMenu> sysMenuMap=new HashMap<Long,SysMenu>();//菜单map key为菜单id
+    private static Map<Long,SysRoles> sysRolesMap=new HashMap<Long,SysRoles>();//角色map   key为角色id
+  /*  private static Map<Long,SysMenu> sysMenuMap=new HashMap<Long,SysMenu>();//菜单map key为菜单id
 
     private static Map<Long,SysStations> sysStationsMap=new HashMap<Long,SysStations>(); //岗位map key为岗位id
     private static Map<Long,SysOrganization> sysOrganizationMap=new HashMap<Long,SysOrganization>();//组织map key组织id
@@ -14,23 +21,23 @@ public class UserInfoUtil {
 
     private static Map<Long,List<SysMenu>> sysRolesMenu=new HashMap<Long,List<SysMenu>>();//角色菜单map   key为角色id
     private static Map<Long,List<SysOrganization>> sysStationsOrganization=new HashMap<Long,List<SysOrganization>>();//岗位组织map key为岗位id
-    private static Map<Long,Set<Long>> sysStationsRepIdMap=new HashMap<Long,Set<Long>>(); //岗位对报表id 的map  key为岗位id
+    private static Map<Long,Set<Long>> sysStationsRepIdMap=new HashMap<Long,Set<Long>>(); //岗位对报表id 的map  key为岗位id*/
 
 
     public static void init(IUserService userService)
     {
-        sysRolesMap=userService.getSysRolesMap(SystemConst.SysRolesConst.IsUsed.yes);
-        sysMenuMap=userService.getSysMenusMap(SystemConst.SysMenuConst.menu_state.enabled);
+        sysRolesMap=userService.getSysRolesMap(SystemConst.GobalCfg.State.enable);
+        /*sysMenuMap=userService.getSysMenusMap(SystemConst.SysMenuConst.menu_state.enabled);
 
         sysStationsMap=userService.getSysStationsMap(SystemConst.SysStations.IsUsed.yes);
         sysOrganizationMap=userService.getSysOrganizationMap(SystemConst.SysOrganizationConst.state.enabled);
 
         sysRolesMenu=packageSysRolesMenu(userService);
         sysStationsOrganization=packageSysStationsOrganization(userService);
-        sysStationsRepIdMap=packageSysStationsRepIdMap(userService);
+        sysStationsRepIdMap=packageSysStationsRepIdMap(userService);*/
     }
 
-    *//**
+    /**
      * 组装岗位的报表id
      * @param userService
      * @return

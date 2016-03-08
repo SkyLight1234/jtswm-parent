@@ -12,15 +12,7 @@
 
 	<bean id="userService" class="com.zdpzsp.system.service.impl.UserServiceImpl">
 		<property name="sysUserMapper" ref="sysUserMapper"/>
-		<property name="sysOrganizationMapper" ref="sysOrganizationMapper"/>
-		<property name="sysRoleMenusMapper" ref="sysRoleMenusMapper"/>
 		<property name="sysRolesMapper" ref="sysRolesMapper"/>
-		<property name="sysStationOrgsMapper" ref="sysStationOrgsMapper"/>
-		<property name="sysStationRptsMapper" ref="sysStationRptsMapper"/>
-		<property name="sysStationsMapper" ref="sysStationsMapper"/>
-		<property name="sysMenuMapper" ref="sysMenuMapper"/>
-		<property name="sysUserRolesMapper" ref="sysUserRolesMapper"/>
-		<property name="sysUserStationsMapper" ref="sysUserStationsMapper"/>
 	</bean>
 
 </beans>

@@ -3,17 +3,16 @@
 <mapper namespace="com.zdpzsp.frame.bo.View_paramMapper" >
   <resultMap id="BaseResultMap" type="com.zdpzsp.frame.bo.View_param" >
     <result column="code_type" property="code_type" jdbcType="VARCHAR" />
+    <result column="code_value" property="code_value" jdbcType="VARCHAR" />
     <result column="code_name" property="code_name" jdbcType="VARCHAR" />
     <result column="code_desc" property="code_desc" jdbcType="VARCHAR" />
-    <result column="parent_type" property="parent_type" jdbcType="VARCHAR" />
-    <result column="code_type_alias" property="code_type_alias" jdbcType="VARCHAR" />
-    <result column="state" property="state" jdbcType="INTEGER" />
-    <result column="extend_code" property="extend_code" jdbcType="VARCHAR" />
-    <result column="code_value" property="code_value" jdbcType="VARCHAR" />
     <result column="parent_value" property="parent_value" jdbcType="VARCHAR" />
-    <result column="sort_id" property="sort_id" jdbcType="INTEGER" />
+    <result column="parent_type" property="parent_type" jdbcType="VARCHAR" />
+    <result column="code_type_alias" property="code_type_alias" jdbcType="CHAR" />
+    <result column="sort_id" property="sort_id" jdbcType="CHAR" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="extend_code" property="extend_code" jdbcType="CHAR" />
   </resultMap>
-
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -43,10 +42,39 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List" >
-    code_type, code_name, code_desc, parent_type, code_type_alias, state, extend_code,code_value, parent_value, sort_id
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
   </sql>
-
+  <sql id="Base_Column_List" >
+    code_type, code_value, code_name, code_desc, parent_value, parent_type, code_type_alias,
+    sort_id, state, extend_code
+  </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zdpzsp.frame.bo.View_paramExample" >
     select
     <if test="distinct" >
@@ -61,12 +89,148 @@
       order by ${orderByClause}
     </if>
   </select>
-
+  <delete id="deleteByExample" parameterType="com.zdpzsp.frame.bo.View_paramExample" >
+    delete from view_param
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zdpzsp.frame.bo.View_param" >
+    insert into view_param (code_type, code_value, code_name,
+    code_desc, parent_value, parent_type,
+    code_type_alias, sort_id, state,
+    extend_code)
+    values (#{code_type,jdbcType=VARCHAR}, #{code_value,jdbcType=VARCHAR}, #{code_name,jdbcType=VARCHAR},
+    #{code_desc,jdbcType=VARCHAR}, #{parent_value,jdbcType=VARCHAR}, #{parent_type,jdbcType=VARCHAR},
+    #{code_type_alias,jdbcType=CHAR}, #{sort_id,jdbcType=CHAR}, #{state,jdbcType=VARCHAR},
+    #{extend_code,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zdpzsp.frame.bo.View_param" >
+    insert into view_param
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="code_type != null" >
+        code_type,
+      </if>
+      <if test="code_value != null" >
+        code_value,
+      </if>
+      <if test="code_name != null" >
+        code_name,
+      </if>
+      <if test="code_desc != null" >
+        code_desc,
+      </if>
+      <if test="parent_value != null" >
+        parent_value,
+      </if>
+      <if test="parent_type != null" >
+        parent_type,
+      </if>
+      <if test="code_type_alias != null" >
+        code_type_alias,
+      </if>
+      <if test="sort_id != null" >
+        sort_id,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="extend_code != null" >
+        extend_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="code_type != null" >
+        #{code_type,jdbcType=VARCHAR},
+      </if>
+      <if test="code_value != null" >
+        #{code_value,jdbcType=VARCHAR},
+      </if>
+      <if test="code_name != null" >
+        #{code_name,jdbcType=VARCHAR},
+      </if>
+      <if test="code_desc != null" >
+        #{code_desc,jdbcType=VARCHAR},
+      </if>
+      <if test="parent_value != null" >
+        #{parent_value,jdbcType=VARCHAR},
+      </if>
+      <if test="parent_type != null" >
+        #{parent_type,jdbcType=VARCHAR},
+      </if>
+      <if test="code_type_alias != null" >
+        #{code_type_alias,jdbcType=CHAR},
+      </if>
+      <if test="sort_id != null" >
+        #{sort_id,jdbcType=CHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="extend_code != null" >
+        #{extend_code,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
   <select id="countByExample" parameterType="com.zdpzsp.frame.bo.View_paramExample" resultType="java.lang.Integer" >
     select count(*) from view_param
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
- 
+  <update id="updateByExampleSelective" parameterType="map" >
+    update view_param
+    <set >
+      <if test="record.code_type != null" >
+        code_type = #{record.code_type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.code_value != null" >
+        code_value = #{record.code_value,jdbcType=VARCHAR},
+      </if>
+      <if test="record.code_name != null" >
+        code_name = #{record.code_name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.code_desc != null" >
+        code_desc = #{record.code_desc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parent_value != null" >
+        parent_value = #{record.parent_value,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parent_type != null" >
+        parent_type = #{record.parent_type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.code_type_alias != null" >
+        code_type_alias = #{record.code_type_alias,jdbcType=CHAR},
+      </if>
+      <if test="record.sort_id != null" >
+        sort_id = #{record.sort_id,jdbcType=CHAR},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.extend_code != null" >
+        extend_code = #{record.extend_code,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update view_param
+    set code_type = #{record.code_type,jdbcType=VARCHAR},
+    code_value = #{record.code_value,jdbcType=VARCHAR},
+    code_name = #{record.code_name,jdbcType=VARCHAR},
+    code_desc = #{record.code_desc,jdbcType=VARCHAR},
+    parent_value = #{record.parent_value,jdbcType=VARCHAR},
+    parent_type = #{record.parent_type,jdbcType=VARCHAR},
+    code_type_alias = #{record.code_type_alias,jdbcType=CHAR},
+    sort_id = #{record.sort_id,jdbcType=CHAR},
+    state = #{record.state,jdbcType=VARCHAR},
+    extend_code = #{record.extend_code,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+
 </mapper>

@@ -11,9 +11,6 @@ import java.util.Set;
 public class UserInfoVo {
     private SysUser sysUser;
     private List<SysRoles> sysRolesList;
-    private List<SysMenu> sysMenus;
-    private List<SysStations> sysStationsList;
-    private List<SysOrganization> sysOrganizations;
     private Set<Long> repIds;
 
     public SysUser getSysUser() {
@@ -30,30 +27,6 @@ public class UserInfoVo {
 
     public void setSysRolesList(List<SysRoles> sysRolesList) {
         this.sysRolesList = sysRolesList;
-    }
-
-    public List<SysMenu> getSysMenus() {
-        return sysMenus;
-    }
-
-    public void setSysMenus(List<SysMenu> sysMenus) {
-        this.sysMenus = sysMenus;
-    }
-
-    public List<SysStations> getSysStationsList() {
-        return sysStationsList;
-    }
-
-    public void setSysStationsList(List<SysStations> sysStationsList) {
-        this.sysStationsList = sysStationsList;
-    }
-
-    public List<SysOrganization> getSysOrganizations() {
-        return sysOrganizations;
-    }
-
-    public void setSysOrganizations(List<SysOrganization> sysOrganizations) {
-        this.sysOrganizations = sysOrganizations;
     }
 
     public Set<Long> getRepIds() {

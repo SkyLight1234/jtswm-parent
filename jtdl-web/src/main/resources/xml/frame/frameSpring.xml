@@ -11,7 +11,6 @@
      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
 	<bean id="commService" class="com.zdpzsp.frame.service.impl.CommServiceImpl">
-		<property name="commMapper" ref="commMapper" />
 		<property name="view_paramMapper" ref="view_paramMapper" />
 	</bean>
 </beans>

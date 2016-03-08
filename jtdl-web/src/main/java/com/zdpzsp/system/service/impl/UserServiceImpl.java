@@ -1,18 +1,18 @@
 package com.zdpzsp.system.service.impl;
 
+import com.google.common.collect.Maps;
 import com.zdpzsp.frame.FrameConst;
 import com.zdpzsp.frame.ResultCode;
 import com.zdpzsp.frame.exception.DESDecryptException;
 import com.zdpzsp.frame.utils.DES;
 import com.zdpzsp.system.SystemConst;
-import com.zdpzsp.system.bo.SysUser;
-import com.zdpzsp.system.bo.SysUserExample;
-import com.zdpzsp.system.bo.SysUserMapper;
+import com.zdpzsp.system.bo.*;
 import com.zdpzsp.system.exception.ServiceException;
 import com.zdpzsp.system.service.IUserService;
 import com.zdpzsp.system.utils.MailUtil;
 import com.zdpzsp.system.utils.vo.EmailContent;
 import com.zdpzsp.system.vo.RegisterUserVo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -20,6 +20,7 @@ import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by xiaxia on 2015/11/24 .
@@ -27,10 +28,17 @@ import java.util.List;
 public class UserServiceImpl implements IUserService {
 
     private SysUserMapper sysUserMapper;
+    private SysRolesMapper sysRolesMapper;
 
     @Override
-    public void register(RegisterUserVo registerUserVo) {
-
+    public void register(RegisterUserVo registerUserVo) throws Exception {
+        String sysPassword = registerUserVo.getSysPassword();
+        String encrypt = DES.encrypt(sysPassword);
+        registerUserVo.setSysPassword(encrypt);
+        SysUser sysUser = new SysUser();
+        Object convert;
+        BeanUtils.copyProperties(registerUserVo,sysUser);
+        sysUserMapper.insert(sysUser);
     }
 
     public void sendValidateCode(String valicateCode,String email, HttpSession session) throws ServiceException {
@@ -48,7 +56,7 @@ public class UserServiceImpl implements IUserService {
         }
     }
 
-   public void login(String userName, String password, HttpSession session) throws ServiceException {
+   public void login(String userName, String password, HttpSession session) throws ServiceException, Exception {
 
        if (!StringUtils.hasLength(userName)) {
            throw new ServiceException(ResultCode.user_no_login);
@@ -139,6 +147,15 @@ public class UserServiceImpl implements IUserService {
         }*/
     }
 
+    @Override
+    public Map<Long, SysRoles> getSysRolesMap(Integer enable) {
+        SysRolesExample example=new SysRolesExample();
+        example.or().andStateEqualTo(enable);
+        List<SysRoles> sysRoles = sysRolesMapper.selectByExample(example);
+        final Map<Long, SysRoles> map = Maps.uniqueIndex(sysRoles, c -> c.getSysRoleId());
+        return map;
+    }
+
 
     public SysUserMapper getSysUserMapper() {
         return sysUserMapper;
@@ -146,5 +163,13 @@ public class UserServiceImpl implements IUserService {
 
     public void setSysUserMapper(SysUserMapper sysUserMapper) {
         this.sysUserMapper = sysUserMapper;
+    }
+
+    public SysRolesMapper getSysRolesMapper() {
+        return sysRolesMapper;
+    }
+
+    public void setSysRolesMapper(SysRolesMapper sysRolesMapper) {
+        this.sysRolesMapper = sysRolesMapper;
     }
 }

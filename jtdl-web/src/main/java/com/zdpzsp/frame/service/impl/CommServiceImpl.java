@@ -1,13 +1,11 @@
 package com.zdpzsp.frame.service.impl;
 
 
-import com.zdpzsp.frame.bo.CommMapper;
 import com.zdpzsp.frame.bo.View_param;
 import com.zdpzsp.frame.bo.View_paramExample;
 import com.zdpzsp.frame.bo.View_paramMapper;
 import com.zdpzsp.frame.service.ICommService;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,29 +13,9 @@ import java.util.Map;
 
 public class CommServiceImpl implements ICommService {
 
-	private CommMapper commMapper = null;
 	private View_paramMapper view_paramMapper = null;
 
 
-	@Override
-	public Timestamp getSysdate() throws Exception {
-		return commMapper.getSysdate();
-	}
-
-	@Override
-	public int getNextval(String seqName) throws Exception {
-		Map condition = new HashMap();
-		condition.put("seqName", seqName);
-		return (int)commMapper.getNextval(condition);
-	}
-	
-	@Override
-	public int getNextvalSet(String seqName,int val) throws Exception {
-		Map condition = new HashMap();
-		condition.put("seqName", seqName);
-		condition.put("val", val);
-		return (int)commMapper.getNextvalSet(condition);
-	}
 	
 	public List<View_param> getViewParam() {
 		View_paramExample e = new View_paramExample();
@@ -86,18 +64,6 @@ public class CommServiceImpl implements ICommService {
 		map.put("parentType", parentTypeMap);
 		map.put("codeTypeValue", codeTypeValueMap);
 		return map;
-	}
-
-	
-	
-	
-
-	public CommMapper getCommMapper() {
-		return commMapper;
-	}
-	
-	public void setCommMapper(CommMapper dbMapper) {
-		this.commMapper = dbMapper;
 	}
 	
 	public View_paramMapper getView_paramMapper() {
