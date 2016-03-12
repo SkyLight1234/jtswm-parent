@@ -68,17 +68,32 @@ $(document).ready(function () {
         var times=10;
         Verification="1234";
         $getVerification1.addClass("shine_red");
-        var countDown=setInterval(function () {
-            times--;
-            $getVerification1.children("i").text("验证码已发送，请到邮箱查收！"+times+"s");
-            if(times<=0){
-                clearInterval(countDown);
-                $getVerification.children("i").html("重新获取验证码");
-                $getVerification1.children("i").html("重新获取验证码");
-                $getVerification1.hide();
-                $getVerification.show();
+        $.ajax({
+            type : "POST",
+            url :  localUrl+'/system/User!sendValicateCode',
+            dataType : 'jsonp',
+            data : {
+                'email':"1032960260@qq.com",
+                'validateCode':"258789"
+            },
+            success : function(data) {
+                console.log(JSON.stringify(data));
+            },
+            error : function( textStatus, errorThrown) {
+                console.log(textStatus);
             }
-        },1000)
+        });
+        //var countDown=setInterval(function () {
+        //    times--;
+        //    $getVerification1.children("i").text("验证码已发送，请到邮箱查收！"+times+"s");
+        //    if(times<=0){
+        //        clearInterval(countDown);
+        //        $getVerification.children("i").html("重新获取验证码");
+        //        $getVerification1.children("i").html("重新获取验证码");
+        //        $getVerification1.hide();
+        //        $getVerification.show();
+        //    }
+        //},1000)
     });
     $register.on("click", function () {
         var value;
