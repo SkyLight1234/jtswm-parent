@@ -24,8 +24,7 @@ public class LoginAction extends ActionSupport implements ServletRequestAware {
 
     public String login(){
         try {
-
-            userService.login(userName,password,request.getSession() );
+            userService.login(userName, password, request.getSession());
             inputStream=WebUtils.succeeMessage("登录成功");
         }catch (ServiceException e)
         {

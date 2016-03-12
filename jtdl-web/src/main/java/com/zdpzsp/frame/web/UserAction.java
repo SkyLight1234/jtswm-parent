@@ -13,7 +13,7 @@ import java.io.InputStream;
 /**
  * Created by xiaxia on 2015/11/24 .
  */
-public class LoginAction extends ActionSupport implements ServletRequestAware {
+public class UserAction extends ActionSupport implements ServletRequestAware {
     private HttpServletRequest request;
     private IUserService userService;
 

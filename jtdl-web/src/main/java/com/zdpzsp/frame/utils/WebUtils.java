@@ -20,11 +20,13 @@ public class WebUtils {
 	public static InputStream succeeMessage(String message) {
 		Map<String,Object> map=new HashMap<String, Object>();
 		map.put("message",message);
+		map.put("state", true);
 		return succee(null,map);
 	}
 	public static InputStream succeeMessage(String callback,String message) {
 		Map<String,Object> map=new HashMap<String, Object>();
 		map.put("message",message);
+		map.put("state", true);
 		return succee(callback,map);
 	}
 
@@ -48,6 +50,7 @@ public class WebUtils {
 		Map<String,Object> map=new HashMap<String,Object>();
 		map.put("code",code);
 		map.put("message",message);
+		map.put("state", false);
 		return JsonUtils.objToInputStream(callback,map);
 	}
 

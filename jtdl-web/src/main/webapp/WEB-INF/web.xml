@@ -14,17 +14,17 @@
   </listener>
 
   <!-- 服务启动时加载缓存 -->
-  <!--<listener>
+  <listener>
     <listener-class>com.zdpzsp.frame.listener.ApplicationListener</listener-class>
   </listener>
 
   <listener>
     <listener-class>com.zdpzsp.system.listener.SystemListener</listener-class>
-  </listener>-->
+  </listener>
 
-  <!--<listener>-->
-    <!--<listener-class>com.zdpzsp.report.listener.ReportListerner</listener-class>-->
-  <!--</listener>-->
+<!--  <listener>
+    <listener-class>com.zdpzsp.report.listener.ReportListerner</listener-class>
+  </listener>-->
 
   <context-param>
     <param-name>loggingLevel</param-name>

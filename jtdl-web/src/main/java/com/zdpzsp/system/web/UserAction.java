@@ -39,8 +39,8 @@ public class UserAction extends ActionSupport implements ServletRequestAware{
             e.printStackTrace();
         } catch (Exception e) {
             inputStream = WebUtils.error(ResultCode.sys_err);
-            e.printStackTrace();
-        }
+			e.printStackTrace();
+		}
         return "data";
 
     }

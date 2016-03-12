@@ -145,5 +145,6 @@
     <modules>
         <module>jtcm-web</module>
         <module>jtdl-web</module>
+        <module>demo</module>
     </modules>
 </project>
