@@ -1,7 +1,6 @@
 package com.zdpzsp.note.web;
 
 import com.opensymphony.xwork2.ActionSupport;
-import org.apache.struts2.interceptor.ServletRequestAware;
 
 import java.io.InputStream;
 

@@ -84,7 +84,7 @@ public class NoteServiceImpl implements INoteService {
     public InputStream getFileByResId(Long resId) {
         ResFile resFile = resFileMapper.selectByPrimaryKey(resId);
         String s = resFile.getFile_url() + resFile.getFile_name();
-        //Todo
+        //Too
         return null;
     }
 

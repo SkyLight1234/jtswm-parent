@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zdpzsp.system.bo.SysStateMapMapper" >
+  <resultMap id="BaseResultMap" type="com.zdpzsp.system.bo.SysStateMap" >
+    <id column="state_id" property="stateId" jdbcType="BIGINT" />
+    <result column="state_code" property="stateCode" jdbcType="BIGINT" />
+    <result column="state_table" property="stateTable" jdbcType="VARCHAR" />
+    <result column="state_value" property="stateValue" jdbcType="VARCHAR" />
+    <result column="create_at" property="createAt" jdbcType="BIGINT" />
+    <result column="create_id" property="createId" jdbcType="BIGINT" />
+    <result column="update_at" property="updateAt" jdbcType="BIGINT" />
+    <result column="update_id" property="updateId" jdbcType="BIGINT" />
+    <result column="is_used" property="isUsed" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    state_id, state_code, state_table, state_value, create_at, create_id, update_at, 
+    update_id, is_used
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zdpzsp.system.bo.SysStateMapExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_state_map
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_state_map
+    where state_id = #{stateId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from sys_state_map
+    where state_id = #{stateId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zdpzsp.system.bo.SysStateMapExample" >
+    delete from sys_state_map
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zdpzsp.system.bo.SysStateMap" >
+    insert into sys_state_map (state_id, state_code, state_table, 
+      state_value, create_at, create_id, 
+      update_at, update_id, is_used
+      )
+    values (#{stateId,jdbcType=BIGINT}, #{stateCode,jdbcType=BIGINT}, #{stateTable,jdbcType=VARCHAR}, 
+      #{stateValue,jdbcType=VARCHAR}, #{createAt,jdbcType=BIGINT}, #{createId,jdbcType=BIGINT}, 
+      #{updateAt,jdbcType=BIGINT}, #{updateId,jdbcType=BIGINT}, #{isUsed,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zdpzsp.system.bo.SysStateMap" >
+    insert into sys_state_map
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stateId != null" >
+        state_id,
+      </if>
+      <if test="stateCode != null" >
+        state_code,
+      </if>
+      <if test="stateTable != null" >
+        state_table,
+      </if>
+      <if test="stateValue != null" >
+        state_value,
+      </if>
+      <if test="createAt != null" >
+        create_at,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="updateAt != null" >
+        update_at,
+      </if>
+      <if test="updateId != null" >
+        update_id,
+      </if>
+      <if test="isUsed != null" >
+        is_used,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stateId != null" >
+        #{stateId,jdbcType=BIGINT},
+      </if>
+      <if test="stateCode != null" >
+        #{stateCode,jdbcType=BIGINT},
+      </if>
+      <if test="stateTable != null" >
+        #{stateTable,jdbcType=VARCHAR},
+      </if>
+      <if test="stateValue != null" >
+        #{stateValue,jdbcType=VARCHAR},
+      </if>
+      <if test="createAt != null" >
+        #{createAt,jdbcType=BIGINT},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=BIGINT},
+      </if>
+      <if test="updateAt != null" >
+        #{updateAt,jdbcType=BIGINT},
+      </if>
+      <if test="updateId != null" >
+        #{updateId,jdbcType=BIGINT},
+      </if>
+      <if test="isUsed != null" >
+        #{isUsed,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zdpzsp.system.bo.SysStateMapExample" resultType="java.lang.Integer" >
+    select count(*) from sys_state_map
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_state_map
+    <set >
+      <if test="record.stateId != null" >
+        state_id = #{record.stateId,jdbcType=BIGINT},
+      </if>
+      <if test="record.stateCode != null" >
+        state_code = #{record.stateCode,jdbcType=BIGINT},
+      </if>
+      <if test="record.stateTable != null" >
+        state_table = #{record.stateTable,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stateValue != null" >
+        state_value = #{record.stateValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createAt != null" >
+        create_at = #{record.createAt,jdbcType=BIGINT},
+      </if>
+      <if test="record.createId != null" >
+        create_id = #{record.createId,jdbcType=BIGINT},
+      </if>
+      <if test="record.updateAt != null" >
+        update_at = #{record.updateAt,jdbcType=BIGINT},
+      </if>
+      <if test="record.updateId != null" >
+        update_id = #{record.updateId,jdbcType=BIGINT},
+      </if>
+      <if test="record.isUsed != null" >
+        is_used = #{record.isUsed,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_state_map
+    set state_id = #{record.stateId,jdbcType=BIGINT},
+      state_code = #{record.stateCode,jdbcType=BIGINT},
+      state_table = #{record.stateTable,jdbcType=VARCHAR},
+      state_value = #{record.stateValue,jdbcType=VARCHAR},
+      create_at = #{record.createAt,jdbcType=BIGINT},
+      create_id = #{record.createId,jdbcType=BIGINT},
+      update_at = #{record.updateAt,jdbcType=BIGINT},
+      update_id = #{record.updateId,jdbcType=BIGINT},
+      is_used = #{record.isUsed,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zdpzsp.system.bo.SysStateMap" >
+    update sys_state_map
+    <set >
+      <if test="stateCode != null" >
+        state_code = #{stateCode,jdbcType=BIGINT},
+      </if>
+      <if test="stateTable != null" >
+        state_table = #{stateTable,jdbcType=VARCHAR},
+      </if>
+      <if test="stateValue != null" >
+        state_value = #{stateValue,jdbcType=VARCHAR},
+      </if>
+      <if test="createAt != null" >
+        create_at = #{createAt,jdbcType=BIGINT},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=BIGINT},
+      </if>
+      <if test="updateAt != null" >
+        update_at = #{updateAt,jdbcType=BIGINT},
+      </if>
+      <if test="updateId != null" >
+        update_id = #{updateId,jdbcType=BIGINT},
+      </if>
+      <if test="isUsed != null" >
+        is_used = #{isUsed,jdbcType=INTEGER},
+      </if>
+    </set>
+    where state_id = #{stateId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zdpzsp.system.bo.SysStateMap" >
+    update sys_state_map
+    set state_code = #{stateCode,jdbcType=BIGINT},
+      state_table = #{stateTable,jdbcType=VARCHAR},
+      state_value = #{stateValue,jdbcType=VARCHAR},
+      create_at = #{createAt,jdbcType=BIGINT},
+      create_id = #{createId,jdbcType=BIGINT},
+      update_at = #{updateAt,jdbcType=BIGINT},
+      update_id = #{updateId,jdbcType=BIGINT},
+      is_used = #{isUsed,jdbcType=INTEGER}
+    where state_id = #{stateId,jdbcType=BIGINT}
+  </update>
+</mapper>
