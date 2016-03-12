@@ -32,10 +32,10 @@ public class UserAction extends ActionSupport implements ServletRequestAware{
             userService.sendValidateCode(getValidateCode(), getEmail(),request.getSession());
             inputStream = WebUtils.succee(callback,"发送成功");
         } catch (ServiceException e) {
-            inputStream = WebUtils.error(e);
+            inputStream = WebUtils.error(callback,e);
             e.printStackTrace();
         } catch (Exception e) {
-            inputStream = WebUtils.error(ResultCode.sys_err);
+            inputStream = WebUtils.error(callback,ResultCode.sys_err);
 			e.printStackTrace();
 		}
         return "data";
@@ -47,10 +47,10 @@ public class UserAction extends ActionSupport implements ServletRequestAware{
 			userService.login(getUserName(), getPwd(), request.getSession());
 			inputStream = WebUtils.succee(callback,"登陆成功");
 		} catch (ServiceException e) {
-			inputStream = WebUtils.error(e);
+			inputStream = WebUtils.error(callback,e);
 			e.printStackTrace();
 		} catch (Exception e) {
-			inputStream = WebUtils.error(ResultCode.sys_err);
+			inputStream = WebUtils.error(callback,ResultCode.sys_err);
 			e.printStackTrace();
 		}
 		return "data";
@@ -61,10 +61,10 @@ public class UserAction extends ActionSupport implements ServletRequestAware{
 			userService.register(registerUserVo);
 			inputStream = WebUtils.succee(callback,"注册成功");
 		} catch (ServiceException e) {
-			inputStream = WebUtils.error(e);
+			inputStream = WebUtils.error(callback,e);
 			e.printStackTrace();
 		} catch (Exception e) {
-			inputStream = WebUtils.error(ResultCode.sys_err);
+			inputStream = WebUtils.error(callback,ResultCode.sys_err);
 			e.printStackTrace();
 		}
 		return "data";
