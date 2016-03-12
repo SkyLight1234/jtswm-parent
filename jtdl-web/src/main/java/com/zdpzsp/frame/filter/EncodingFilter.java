@@ -29,6 +29,7 @@ public class EncodingFilter implements Filter {
         response.setContentType("text/html;charset=" + encoding);
         // 处理GE T参数
         HttpServletRequest request = (HttpServletRequest) req;
+        //response.addHeader("Access-Control-Allow-Origin", "*");
         if (request.getMethod().equalsIgnoreCase("get")) {
             Map paramMap = req.getParameterMap();
             String[] queryStringArray = null;
