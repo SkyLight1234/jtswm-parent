@@ -11,7 +11,16 @@ $(document).ready(function () {
     var $getVerification=$("#getVerification");
     var $getVerification1=$("#getVerification1");
     var $verification=$("#verification");
+
     var Verification="";
+
+    function GetRandomNum(Min,Max)
+    {
+        var Range = Max - Min;
+        var Rand = Math.random();
+        return(Min + Math.round(Rand * Range));
+    }
+
     $(".login-box:eq(0)").fadeIn("fast").addClass("lightSpeedIn");
     $("form input").not("#agree").focus(function () {
         $(this).addClass("shine_red").val("");
@@ -63,55 +72,80 @@ $(document).ready(function () {
         }
     });
     $getVerification.on("click", function () {
-        $(this).hide();
-        $getVerification1.show();
-        var times=10;
-        Verification="1234";
-        $getVerification1.addClass("shine_red");
-        $.ajax({
-            type : "POST",
-            url :  localUrl+'/system/User!sendValicateCode',
-            dataType : 'jsonp',
-            data : {
-                'email':"1032960260@qq.com",
-                'validateCode':"258789"
-            },
-            success : function(data) {
-                console.log(JSON.stringify(data));
-            },
-            error : function( textStatus, errorThrown) {
-                console.log(textStatus);
-            }
-        });
-        //var countDown=setInterval(function () {
-        //    times--;
-        //    $getVerification1.children("i").text("验证码已发送，请到邮箱查收！"+times+"s");
-        //    if(times<=0){
-        //        clearInterval(countDown);
-        //        $getVerification.children("i").html("重新获取验证码");
-        //        $getVerification1.children("i").html("重新获取验证码");
-        //        $getVerification1.hide();
-        //        $getVerification.show();
-        //    }
-        //},1000)
+        var times=100;
+        Verification=GetRandomNum(1,999999);
+        if(email.test($Email.val())){
+            $.ajax({
+                type : "GET",
+                url :  localUrl+'/system/User!sendValicateCode',
+                dataType : 'jsonp',
+                jsonp: 'callback',
+                contentType: "application/json;utf-8",
+                data : {
+                    'email':$Email.val(),
+                    'validateCode':Verification
+                },
+                success : function(data) {
+                    if(data.data=="发送成功"){
+                        $getVerification.hide();
+                        $getVerification1.show();
+                        $getVerification1.addClass("shine_red");
+                        var countDown=setInterval(function () {
+                            times--;
+                            $getVerification1.children("i").text("验证码已发送，请到邮箱查收！"+times+"s");
+                            if(times<=0){
+                                clearInterval(countDown);
+                                $getVerification.children("i").html("重新获取验证码");
+                                $getVerification1.children("i").html("重新获取验证码");
+                                $getVerification1.hide();
+                                $getVerification.show();
+                            }
+                        },1000)
+                    }
+                },
+                error : function( textStatus, errorThrown) {
+                    console.log(textStatus);
+                }
+            });
+        }else{
+            $Email.focus();
+        }
     });
     $register.on("click", function () {
-        var value;
+        var value=0;
         if(($verification.val()==Verification)&&($verification.val()!="")){
             $(".prompt").each(function (i) {
-                if($(this).css("color")!="rgb(5, 101, 21)"){
+                if( $(".prompt:eq("+i+")").css("color")!="rgb(5, 101, 21)"){
                     alert("请输入正确的"+$(this).attr("title"));
-                    $(this).siblings("input").onfocus;
-                    value=0;
+                    $(".prompt:eq("+i+")").siblings("input").onfocus;
+                    value=1;
                     return false;
                 }
             });
-            if(value==0){
-                return false;
+            if(value=="0"){
+                $.ajax({
+                    type : "GET",
+                    url :  localUrl+'/system/User!register',
+                    dataType : 'jsonp',
+                    jsonp: 'callback',
+                    contentType: "application/json;utf-8",
+                    data : {
+                        'registerUserVo':{
+                            'sysAccount':$account.val(),
+                            'sysPassword':$password.val(),
+                            'userEmail':$Email.val()
+                        }
+                    },
+                    success : function(data) {
+                        console.log(data);
+                    },
+                    error : function( textStatus, errorThrown) {
+                        console.log(textStatus);
+                    }
+                });
             }
         }else{
             alert("验证码不正确");
-            return false;
         }
     })
 });
