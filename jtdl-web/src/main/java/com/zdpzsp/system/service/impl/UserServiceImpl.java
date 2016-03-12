@@ -37,12 +37,14 @@ public class UserServiceImpl implements IUserService {
         registerUserVo.setSysPassword(encrypt);
         SysUser sysUser = new SysUser();
         Object convert;
-        BeanUtils.copyProperties(registerUserVo,sysUser);
+        BeanUtils.copyProperties(registerUserVo, sysUser);
         sysUserMapper.insert(sysUser);
     }
 
-    public void sendValidateCode(String valicateCode,String email, HttpSession session) throws ServiceException {
-        EmailContent emailContent=new EmailContent();
+//    http://localhost:8080/system/User!register?callback=jQuery214027138677798211575_1457794741861&registerUserVo%5BsysAccount%5D=123113&registerUserVo%5BsysPassword%5D=11111111&registerUserVo%5BuserEmail%5D=1032960260%40qq.com&_=1457794741863
+
+    public void sendValidateCode(String valicateCode, String email, HttpSession session) throws ServiceException {
+        EmailContent emailContent = new EmailContent();
         emailContent.setSubject("验证码");
         emailContent.setContent(valicateCode);
         emailContent.setReceice_mail(email);
@@ -56,36 +58,35 @@ public class UserServiceImpl implements IUserService {
         }
     }
 
-   public void login(String userName, String password, HttpSession session) throws ServiceException, Exception {
+    public void login(String userName, String password, HttpSession session) throws ServiceException, Exception {
 
-       if (!StringUtils.hasLength(userName)) {
-           throw new ServiceException(ResultCode.user_no_login);
-       }
-       if (!StringUtils.hasLength(userName)) {
-           throw new ServiceException(ResultCode.user_login_pass_no_eq);
-       }
-       SysUserExample example=new SysUserExample();
-       example.or().andSysAccountEqualTo(userName).andStateEqualTo(SystemConst.GobalCfg.State.enable);
-       List<SysUser> sysUsers = sysUserMapper.selectByExample(example);
-       if (CollectionUtils.isEmpty(sysUsers)) {
-           throw new ServiceException(ResultCode.user_login_no_user);
-       } else {
-           SysUser sysUser = sysUsers.get(0);
-           String decrypt = null;
-           try {
-               decrypt = DES.decrypt(sysUser.getSysPassword());
-               if (decrypt.equals(password)) {
+        if (!StringUtils.hasLength(userName)) {
+            throw new ServiceException(ResultCode.user_no_login);
+        }
+        if (!StringUtils.hasLength(userName)) {
+            throw new ServiceException(ResultCode.user_login_pass_no_eq);
+        }
+        SysUserExample example = new SysUserExample();
+        example.or().andSysAccountEqualTo(userName).andStateEqualTo(SystemConst.GobalCfg.State.enable);
+        List<SysUser> sysUsers = sysUserMapper.selectByExample(example);
+        if (CollectionUtils.isEmpty(sysUsers)) {
+            throw new ServiceException(ResultCode.user_login_no_user);
+        } else {
+            SysUser sysUser = sysUsers.get(0);
+            String decrypt = null;
+            try {
+                decrypt = DES.decrypt(sysUser.getSysPassword());
+                if (decrypt.equals(password)) {
 
 
+                    session.setAttribute(FrameConst.SessionNames.userInfo, sysUser);
+                }
+            } catch (DESDecryptException e) {
+                e.printStackTrace();
+                throw new ServiceException(ResultCode.user_login_pass_no_eq);
+            }
 
-                   session.setAttribute(FrameConst.SessionNames.userInfo, sysUser);
-               }
-           } catch (DESDecryptException e) {
-               e.printStackTrace();
-               throw new ServiceException(ResultCode.user_login_pass_no_eq);
-           }
-
-       }
+        }
 
        /*  try {
             if (userName == null || password == null) {
@@ -149,7 +150,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public Map<Long, SysRoles> getSysRolesMap(Integer enable) {
-        SysRolesExample example=new SysRolesExample();
+        SysRolesExample example = new SysRolesExample();
         example.or().andStateEqualTo(enable);
         List<SysRoles> sysRoles = sysRolesMapper.selectByExample(example);
         final Map<Long, SysRoles> map = Maps.uniqueIndex(sysRoles, c -> c.getSysRoleId());

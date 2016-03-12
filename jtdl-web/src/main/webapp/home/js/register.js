@@ -130,11 +130,9 @@ $(document).ready(function () {
                     jsonp: 'callback',
                     contentType: "application/json;utf-8",
                     data : {
-                        'registerUserVo':{
-                            'sysAccount':$account.val(),
-                            'sysPassword':$password.val(),
-                            'userEmail':$Email.val()
-                        }
+                            'registerUserVo.sysAccount':$account.val(),
+                            'registerUserVo.sysPassword':$password.val(),
+                            'registerUserVo.userEmail':$Email.val()
                     },
                     success : function(data) {
                         console.log(data);
