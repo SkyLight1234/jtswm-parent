@@ -12,8 +12,12 @@ import java.util.Map;
 
 public class WebUtils {
 	public static InputStream succee(Object o) {
-
-		return JsonUtils.objToInputStream(null,o);
+		Map map=new HashMap<String,Object>();
+		map.put("state", true);
+		map.put("message", "调用成功");
+		map.put("code",0);
+		map.put("data",o);
+		return JsonUtils.objToInputStream(null,map);
 	}
 	public static InputStream succee(String callback,Object o) {
 		Map map=new HashMap<String,Object>();
