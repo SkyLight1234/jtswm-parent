@@ -18,6 +18,10 @@ import java.util.Properties;*/
 public class MailUtil {
     public static void main(String args[]){
         try {
+            EmailContent emailContent=new EmailContent();
+            emailContent.setContent("abc");
+            emailContent.setReceice_mail("1032960260@qq.com");
+            emailContent.setSubject("验证码");
             send_email(new EmailContent());
         }catch (Exception e) {
             e.printStackTrace();
@@ -31,9 +35,13 @@ public class MailUtil {
         Properties properties = new Properties();
         InputStream resourceAsStream = null;
         try {
-           resourceAsStream = MailUtil.class.getClassLoader().getSystemClassLoader().getResourceAsStream("email.properties");
+
+            resourceAsStream=null;
+          //  MailUtil.class.getClassLoader().getResourceAsStream("./email.properties");
+           // String path = MailUtil.class.getClassLoader().getResourceAsStream("./email.properties");
+            resourceAsStream =  MailUtil.class.getClassLoader().getResourceAsStream("email.properties");
             System.out.println();
-           // resourceAsStream =new FileInputStream(resourceAsStream);
+           // resourceAsStream =new FileInputStream(resourceAsStream);/Users/zhangdepeng/IdeaProjects/jtswm-parent/jtdl-web/src/main/resources/email.properties
             properties.load(resourceAsStream);
         } finally{
             if (resourceAsStream!=null) {

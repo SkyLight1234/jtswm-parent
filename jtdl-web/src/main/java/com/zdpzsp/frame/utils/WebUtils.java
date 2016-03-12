@@ -11,8 +11,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class WebUtils {
-	public static InputStream succee(Object o) {
-		return succee(null,o);
+	public static InputStream succee(Map map) {
+		map.put("state", true);
+		return succee(null,map);
 	}
 	public static InputStream succee(String callback,Object o) {
 		return JsonUtils.objToInputStream(callback,o);
