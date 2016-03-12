@@ -38,6 +38,7 @@ public class UserServiceImpl implements IUserService {
         SysUser sysUser = new SysUser();
         Object convert;
         BeanUtils.copyProperties(registerUserVo, sysUser);
+        sysUser.setState(SystemConst.GobalCfg.State.enable);
         sysUserMapper.insert(sysUser);
     }
 
@@ -61,7 +62,7 @@ public class UserServiceImpl implements IUserService {
     public void login(String userName, String password, HttpSession session) throws ServiceException, Exception {
 
         if (!StringUtils.hasLength(userName)) {
-            throw new ServiceException(ResultCode.user_no_login);
+            throw new ServiceException(ResultCode.user_login_user_disable);
         }
         if (!StringUtils.hasLength(userName)) {
             throw new ServiceException(ResultCode.user_login_pass_no_eq);

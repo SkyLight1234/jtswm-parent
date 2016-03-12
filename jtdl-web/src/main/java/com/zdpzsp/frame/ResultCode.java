@@ -20,8 +20,8 @@ public enum  ResultCode{
     user_login_pass_encrypt_err(11002,"密码解析失败"),
     user_login_pass_no_eq(11003,"密码错误"),
     user_login_user_disable(11004,"用户不可用"),
-    /*  user_login_no_role(11005,"没有可用角色"),
-      user_login_no_menu(11006,"没有可用菜单"),
+    user_login_username_err(11005,"用户名不存在"),
+        /*  user_login_no_menu(11006,"没有可用菜单"),
       user_role_insert_err(11007,"用户角色添加失败"),
       user_station_insert_err(11008,"用户岗位添加失败"),
       //报表模块错误
@@ -32,7 +32,7 @@ public enum  ResultCode{
       report_no_user_org(12005,"无权限查询此组织"),
       //kpi模块错误
       kpi_no_query(13001,"未找到kpi"),*/
-    user_email_valicate_err(11005, "请检查邮箱的是否正确，发送验证码失败"),
+    user_email_valicate_err(11105, "请检查邮箱的是否正确，发送验证码失败"),
     ;
 
 
