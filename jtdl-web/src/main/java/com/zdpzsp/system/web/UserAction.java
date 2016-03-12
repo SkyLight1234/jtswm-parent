@@ -6,6 +6,7 @@ import com.zdpzsp.frame.utils.WebUtils;
 import com.zdpzsp.system.exception.ServiceException;
 import com.zdpzsp.system.service.IUserService;
 import com.zdpzsp.system.vo.RegisterUserVo;
+import com.zdpzsp.system.vo.UserInfoVo;
 import org.apache.struts2.interceptor.ServletRequestAware;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,9 +26,17 @@ public class UserAction extends ActionSupport implements ServletRequestAware{
     private String email;
     private RegisterUserVo registerUserVo;
 	private String callback;
+	private UserInfoVo userInfoVo;
 
+	public UserInfoVo getUserInfoVo() {
+		return userInfoVo;
+	}
 
-    public String sendValicateCode() {
+	public void setUserInfoVo(UserInfoVo userInfoVo) {
+		this.userInfoVo = userInfoVo;
+	}
+
+	public String sendValicateCode() {
         try {
             userService.sendValidateCode(getValidateCode(), getEmail(),request.getSession());
             inputStream = WebUtils.succee(callback,"发送成功");
@@ -67,6 +76,11 @@ public class UserAction extends ActionSupport implements ServletRequestAware{
 			inputStream = WebUtils.error(callback,ResultCode.sys_err);
 			e.printStackTrace();
 		}
+		return "data";
+	}
+
+	public String updateUserInfo() {
+		userService.updateUser(userInfoVo);
 		return "data";
 	}
 	/*public String searchAllEnableUser()

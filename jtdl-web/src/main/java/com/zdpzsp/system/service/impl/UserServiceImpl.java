@@ -12,6 +12,7 @@ import com.zdpzsp.system.service.IUserService;
 import com.zdpzsp.system.utils.MailUtil;
 import com.zdpzsp.system.utils.vo.EmailContent;
 import com.zdpzsp.system.vo.RegisterUserVo;
+import com.zdpzsp.system.vo.UserInfoVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -156,6 +157,15 @@ public class UserServiceImpl implements IUserService {
         List<SysRoles> sysRoles = sysRolesMapper.selectByExample(example);
         final Map<Long, SysRoles> map = Maps.uniqueIndex(sysRoles, c -> c.getSysRoleId());
         return map;
+    }
+
+    @Override
+    public void updateUser(UserInfoVo userInfoVo) {
+        SysUser sysUser=new SysUser();
+        BeanUtils.copyProperties(userInfoVo, sysUser);
+
+        sysUserMapper.updateByPrimaryKeySelective(sysUser);
+
     }
 
 

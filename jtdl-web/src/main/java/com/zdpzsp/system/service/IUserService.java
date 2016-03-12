@@ -3,6 +3,7 @@ package com.zdpzsp.system.service;
 import com.zdpzsp.system.bo.SysRoles;
 import com.zdpzsp.system.exception.ServiceException;
 import com.zdpzsp.system.vo.RegisterUserVo;
+import com.zdpzsp.system.vo.UserInfoVo;
 
 import javax.servlet.http.HttpSession;
 import java.util.Map;
@@ -17,4 +18,6 @@ public interface IUserService {
     void login(String userName, String password, HttpSession session) throws  ServiceException,Exception;
 
     Map<Long,SysRoles> getSysRolesMap(Integer enable);
+
+    void updateUser(UserInfoVo userInfoVo);
 }
