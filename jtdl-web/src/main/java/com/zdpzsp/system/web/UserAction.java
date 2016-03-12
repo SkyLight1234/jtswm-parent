@@ -10,8 +10,6 @@ import org.apache.struts2.interceptor.ServletRequestAware;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
 
 public class UserAction extends ActionSupport implements ServletRequestAware{
 
@@ -26,12 +24,13 @@ public class UserAction extends ActionSupport implements ServletRequestAware{
     private String validateCode;
     private String email;
     private RegisterUserVo registerUserVo;
+	private String callback;
 
 
     public String sendValicateCode() {
         try {
             userService.sendValidateCode(getValidateCode(), getEmail(),request.getSession());
-            inputStream = WebUtils.succee("发送成功");
+            inputStream = WebUtils.succee(callback,"发送成功");
         } catch (ServiceException e) {
             inputStream = WebUtils.error(e);
             e.printStackTrace();
@@ -46,7 +45,7 @@ public class UserAction extends ActionSupport implements ServletRequestAware{
 	public String login() {
 		try {
 			userService.login(getUserName(), getPwd(), request.getSession());
-			inputStream = WebUtils.succee("登陆成功");
+			inputStream = WebUtils.succee(callback,"登陆成功");
 		} catch (ServiceException e) {
 			inputStream = WebUtils.error(e);
 			e.printStackTrace();
@@ -60,7 +59,7 @@ public class UserAction extends ActionSupport implements ServletRequestAware{
 	public String register() {
 		try {
 			userService.register(registerUserVo);
-			inputStream = WebUtils.succee("注册成功");
+			inputStream = WebUtils.succee(callback,"注册成功");
 		} catch (ServiceException e) {
 			inputStream = WebUtils.error(e);
 			e.printStackTrace();
@@ -300,4 +299,12 @@ public class UserAction extends ActionSupport implements ServletRequestAware{
     public void setRegisterUserVo(RegisterUserVo registerUserVo) {
         this.registerUserVo = registerUserVo;
     }
+
+	public String getCallback() {
+		return callback;
+	}
+
+	public void setCallback(String callback) {
+		this.callback = callback;
+	}
 }
