@@ -31,9 +31,7 @@ public class UserAction extends ActionSupport implements ServletRequestAware{
     public String sendValicateCode() {
         try {
             userService.sendValidateCode(getValidateCode(), getEmail(),request.getSession());
-            Map<String,Object> map=new HashMap<String, Object>();
-            map.put("message", "发送成功");
-            inputStream = WebUtils.succee(map);
+            inputStream = WebUtils.succee("发送成功");
         } catch (ServiceException e) {
             inputStream = WebUtils.error(e);
             e.printStackTrace();
@@ -48,9 +46,7 @@ public class UserAction extends ActionSupport implements ServletRequestAware{
 	public String login() {
 		try {
 			userService.login(getUserName(), getPwd(), request.getSession());
-			Map<String,Object> map=new HashMap<String, Object>();
-			map.put("message", "登录成功");
-			inputStream = WebUtils.succee(map);
+			inputStream = WebUtils.succee("登陆成功");
 		} catch (ServiceException e) {
 			inputStream = WebUtils.error(e);
 			e.printStackTrace();
@@ -64,9 +60,7 @@ public class UserAction extends ActionSupport implements ServletRequestAware{
 	public String register() {
 		try {
 			userService.register(registerUserVo);
-			Map<String,Object> map=new HashMap<String, Object>();
-			map.put("message", "注册成功");
-			inputStream = WebUtils.succee(map);
+			inputStream = WebUtils.succee("注册成功");
 		} catch (ServiceException e) {
 			inputStream = WebUtils.error(e);
 			e.printStackTrace();

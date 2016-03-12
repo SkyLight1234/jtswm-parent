@@ -11,24 +11,31 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class WebUtils {
-	public static InputStream succee(Map map) {
-		map.put("state", true);
-		return succee(null,map);
+	public static InputStream succee(Object o) {
+
+		return JsonUtils.objToInputStream(null,o);
 	}
 	public static InputStream succee(String callback,Object o) {
-		return JsonUtils.objToInputStream(callback,o);
+		Map map=new HashMap<String,Object>();
+		map.put("state", true);
+		map.put("message", "调用成功");
+		map.put("code",0);
+		map.put("data",o);
+		return JsonUtils.objToInputStream(callback,map);
 	}
 	public static InputStream succeeMessage(String message) {
 		Map<String,Object> map=new HashMap<String, Object>();
 		map.put("message",message);
+		map.put("code",0);
 		map.put("state", true);
-		return succee(null,map);
+		return JsonUtils.objToInputStream(null,map);
 	}
 	public static InputStream succeeMessage(String callback,String message) {
 		Map<String,Object> map=new HashMap<String, Object>();
 		map.put("message",message);
 		map.put("state", true);
-		return succee(callback,map);
+		map.put("code",0);
+		return JsonUtils.objToInputStream(null,map);
 	}
 
 	public static InputStream error(ServiceException e) {
