@@ -33,7 +33,7 @@ public enum  ResultCode{
       //kpi模块错误
       kpi_no_query(13001,"未找到kpi"),*/
     user_email_valicate_err(11105, "请检查邮箱的是否正确，发送验证码失败"),
-    ;
+    sys_file_read_err(11201, "文件读取失败,请检查文件是否存在");
 
 
 

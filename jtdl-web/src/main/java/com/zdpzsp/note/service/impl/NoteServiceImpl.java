@@ -1,8 +1,5 @@
 package com.zdpzsp.note.service.impl;
 
-import com.google.common.base.Function;
-import com.google.common.base.Preconditions;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.zdpzsp.frame.ResultCode;
 import com.zdpzsp.frame.utils.WebUtils;
@@ -10,10 +7,15 @@ import com.zdpzsp.frame.vo.UserInfoVo;
 import com.zdpzsp.note.bo.*;
 import com.zdpzsp.note.service.INoteService;
 import com.zdpzsp.note.vo.WorkBookVo;
+import com.zdpzsp.system.SystemConst;
 import com.zdpzsp.system.exception.ServiceException;
+import com.zdpzsp.system.utils.UserInfoUtil;
 import org.apache.commons.beanutils.BeanUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -84,12 +86,17 @@ public class NoteServiceImpl implements INoteService {
     }
 
     @Override
-    public InputStream getFileByResId(Long resId) {
+    public InputStream getFileByResId(Long resId) throws ServiceException {
         ResFile resFile = resFileMapper.selectByPrimaryKey(resId);
-        String s = resFile.getFile_url() + resFile.getFile_code()+resFile.getRes_file_suffix();
-//        InputStream inputStream=new FileInputStream();
-        //Too
-        return null;
+        String path = UserInfoUtil.realPath +SystemConst.GobalCfg.Paths.Filepath.value+ "/"+resFile.getFile_code()+resFile.getRes_file_suffix();
+        InputStream inputStream;
+        try {
+            inputStream = new FileInputStream(new File(path));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            throw new ServiceException(ResultCode.sys_file_read_err);
+        }
+        return inputStream;
     }
 
 
@@ -110,16 +117,17 @@ public class NoteServiceImpl implements INoteService {
     }
 
     public static void main(String[] args) {
-        Function<String, Integer> strlen = new Function<String, Integer>() {
-            public Integer apply(String from) {
-                Preconditions.checkNotNull(from);
-                return from.length();
-            }
-        };
-        List<String> from = Lists.newArrayList("abc", "defg", "hijkl");
-        List<Integer> to = Lists.transform(from, strlen);
-        for (int i = 0; i < from.size(); i++) {
-            System.out.printf("%s has length %d\n", from.get(i), to.get(i));
-        }
+//        Function<String, Integer> strlen = new Function<String, Integer>() {
+//            public Integer apply(String from) {
+//                Preconditions.checkNotNull(from);
+//                return from.length();
+//            }
+//        };
+//        List<String> from = Lists.newArrayList("abc", "defg", "hijkl");
+//        List<Integer> to = Lists.transform(from, strlen);
+//        for (int i = 0; i < from.size(); i++) {
+//            System.out.printf("%s has length %d\n", from.get(i), to.get(i));
+//        }
+        System.out.println(SystemConst.GobalCfg.Paths.Filepath.value);
     }
 }

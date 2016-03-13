@@ -22,16 +22,18 @@ public class NoteAction extends ActionSupport implements ServletRequestAware {
     private Long userId;
     private String callback;
     private HttpServletRequest request;
+    private Long resId;
+    private String fileContext;
 
     public String getDictoriesByUserId() {
         try {
-            List<WorkBookVo> workBookLabelByUserId = noteService.getWorkBookLabelByUserId(userId);
-            inputStream = WebUtils.succee(callback, workBookLabelByUserId);
+            List<WorkBookVo> workBookLabelByUserId = noteService.getWorkBookLabelByUserId(getUserId());
+            inputStream = WebUtils.succee(getCallback(), workBookLabelByUserId);
         } catch (ServiceException e) {
-            inputStream = WebUtils.error(e);
+            inputStream = WebUtils.error(callback,e);
             e.printStackTrace();
         } catch (Exception e) {
-            inputStream = WebUtils.error(ResultCode.sys_err);
+            inputStream = WebUtils.error(callback,ResultCode.sys_err);
             e.printStackTrace();
         }
         return "data";
@@ -41,16 +43,47 @@ public class NoteAction extends ActionSupport implements ServletRequestAware {
     {
         try {
             List<WorkBookVo> workBookLabelByUserId = noteService.getWorkBooklabelFormCurrentUser(request);
-            inputStream = WebUtils.succee(callback, workBookLabelByUserId);
+            inputStream = WebUtils.succee(getCallback(), workBookLabelByUserId);
         } catch (ServiceException e) {
-            inputStream = WebUtils.error(e);
+            inputStream = WebUtils.error(callback,e);
             e.printStackTrace();
         } catch (Exception e) {
-            inputStream = WebUtils.error(ResultCode.sys_err);
+            inputStream = WebUtils.error(callback,ResultCode.sys_err);
             e.printStackTrace();
         }
         return "data";
     }
+
+    public String getFileByResId() {
+        try {
+            InputStream fileInputStream = noteService.getFileByResId(getResId());
+            inputStream = WebUtils.succee(getCallback(), fileInputStream);
+        } catch (ServiceException e) {
+            inputStream = WebUtils.error(callback,e);
+            e.printStackTrace();
+        } catch (Exception e) {
+            inputStream = WebUtils.error(callback,ResultCode.sys_err);
+            e.printStackTrace();
+        }
+        return "data";
+    }
+
+    public String saveFile()
+    {
+        try {
+            InputStream fileInputStream = noteService.saveFile(getResId());
+            inputStream = WebUtils.succee(getCallback(), fileInputStream);
+        } catch (ServiceException e) {
+            inputStream = WebUtils.error(callback,e);
+            e.printStackTrace();
+        } catch (Exception e) {
+            inputStream = WebUtils.error(callback,ResultCode.sys_err);
+            e.printStackTrace();
+        }
+        return "data";
+    }
+
+
     public INoteService getNoteService() {
         return noteService;
     }
@@ -64,4 +97,35 @@ public class NoteAction extends ActionSupport implements ServletRequestAware {
         this.request=httpServletRequest;
     }
 
+    public Long getResId() {
+        return resId;
+    }
+
+    public void setResId(Long resId) {
+        this.resId = resId;
+    }
+
+    public String getCallback() {
+        return callback;
+    }
+
+    public void setCallback(String callback) {
+        this.callback = callback;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getFileContext() {
+        return fileContext;
+    }
+
+    public void setFileContext(String fileContext) {
+        this.fileContext = fileContext;
+    }
 }

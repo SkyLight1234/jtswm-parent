@@ -15,5 +15,7 @@ public interface INoteService {
     public List<WorkBookVo> getWorkBookLabelByUserId(Long userId) throws InvocationTargetException, IllegalAccessException, ServiceException;
 
     public List<WorkBookVo> getWorkBooklabelFormCurrentUser(HttpServletRequest req) throws InvocationTargetException, IllegalAccessException, ServiceException;
-    public InputStream getFileByResId(Long resId);
+    public InputStream getFileByResId(Long resId) throws ServiceException;
+
+    InputStream saveFile(Long resId) throws ServiceException;
 }

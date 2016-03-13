@@ -86,6 +86,9 @@ public class UserServiceImpl implements IUserService {
 
                     session.setAttribute(FrameConst.SessionNames.userInfo, sysUser);
                 }
+                else {
+                    throw new ServiceException(ResultCode.user_login_no_user);
+                }
             } catch (DESDecryptException e) {
                 e.printStackTrace();
                 throw new ServiceException(ResultCode.user_login_pass_no_eq);
