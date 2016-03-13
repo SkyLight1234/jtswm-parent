@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class WebUtils {
+	public static HttpServletRequest request=null;
 	public static InputStream succee(Object o) {
 		Map map=new HashMap<String,Object>();
 		map.put("state", true);
@@ -66,7 +67,9 @@ public class WebUtils {
 		return JsonUtils.objToInputStream(callback,map);
 	}
 
-
+	public static UserInfoVo getUserInfoVo() {
+		return getUserInfoVo(WebUtils.request);
+	}
 
 	public static UserInfoVo getUserInfoVo(HttpServletRequest request)
 	{

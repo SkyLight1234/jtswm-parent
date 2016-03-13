@@ -99,6 +99,11 @@ public class NoteServiceImpl implements INoteService {
         return inputStream;
     }
 
+    @Override
+    public InputStream saveFile(Long resId) throws ServiceException {
+        return null;
+    }
+
 
     public WorkBookLabelMapper getWorkBookLabelMapper() {
         return workBookLabelMapper;

@@ -6,6 +6,7 @@ import com.zdpzsp.system.exception.ServiceException;
 import com.zdpzsp.system.vo.RegisterUserVo;
 import com.zdpzsp.system.vo.UserInfoVo;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 
@@ -20,7 +21,7 @@ public interface IUserService {
 
     Map<Long,SysRoles> getSysRolesMap(Integer enable);
 
-    void updateUser(UserInfoVo userInfoVo);
+    void updateUser(UserInfoVo userInfoVo, HttpServletRequest request) throws ServiceException;
 
     Map<String, SysHost> getCurrentHost(Integer enable);
 }

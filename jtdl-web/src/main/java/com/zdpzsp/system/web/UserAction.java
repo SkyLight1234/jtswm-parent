@@ -64,10 +64,10 @@ public class UserAction extends ActionSupport implements ServletRequestAware{
 		}
 		return "data";
 	}
-
 	public String register() {
 		try {
 			userService.register(registerUserVo);
+			System.out.println(registerUserVo.toString());
 			inputStream = WebUtils.succee(callback,"注册成功");
 		} catch (ServiceException e) {
 			inputStream = WebUtils.error(callback,e);
@@ -80,7 +80,18 @@ public class UserAction extends ActionSupport implements ServletRequestAware{
 	}
 
 	public String updateUserInfo() {
-		userService.updateUser(userInfoVo);
+		try {
+			userService.updateUser(userInfoVo,request);
+			System.out.println(userInfoVo.toString());
+			inputStream = WebUtils.succee(callback,"修改成功");
+		} catch (ServiceException e) {
+			inputStream = WebUtils.error(callback,e);
+			e.printStackTrace();
+		} catch (Exception e) {
+			inputStream = WebUtils.error(callback,ResultCode.sys_err);
+			e.printStackTrace();
+		}
+
 		return "data";
 	}
 	/*public String searchAllEnableUser()

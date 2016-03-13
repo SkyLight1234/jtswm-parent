@@ -20,33 +20,6 @@ public class UserInfoVo {
 
     private Long updateAt;
 
-    @Override
-    public String toString() {
-        return "UserInfoVo{" +
-                "sysUserId=" + sysUserId +
-                ", sysAccount='" + sysAccount + '\'' +
-                ", sysPassword='" + sysPassword + '\'' +
-                ", headUrl='" + headUrl + '\'' +
-                ", sysUserNickname='" + sysUserNickname + '\'' +
-                ", createAt=" + createAt +
-                ", createId=" + createId +
-                ", updateAt=" + updateAt +
-                ", updateId=" + updateId +
-                ", state=" + state +
-                ", jtId=" + jtId +
-                ", isHead=" + isHead +
-                ", sysJtgxId=" + sysJtgxId +
-                ", sysJtgxName='" + sysJtgxName + '\'' +
-                ", sysUserPhone2='" + sysUserPhone2 + '\'' +
-                ", userEmail='" + userEmail + '\'' +
-                ", sex='" + sex + '\'' +
-                ", birthday=" + birthday +
-                ", userState=" + userState +
-                ", address='" + address + '\'' +
-                ", school='" + school + '\'' +
-                '}';
-    }
-
     private Long updateId;
 
     private Integer state;
@@ -239,5 +212,33 @@ public class UserInfoVo {
 
     public void setSchool(String school) {
         this.school = school;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("UserInfoVo{");
+        sb.append("                'sysUserId':").append(sysUserId);
+        sb.append(",                 'sysAccount':'").append(sysAccount).append('\'');
+        sb.append(",                 'sysPassword':'").append(sysPassword).append('\'');
+        sb.append(",                 'headUrl':'").append(headUrl).append('\'');
+        sb.append(",                 'sysUserNickname':'").append(sysUserNickname).append('\'');
+        sb.append(",                 'createAt':").append(createAt);
+        sb.append(",                 'createId':").append(createId);
+        sb.append(",                 'updateAt':").append(updateAt);
+        sb.append(",                 'updateId':").append(updateId);
+        sb.append(",                 'state':").append(state);
+        sb.append(",                 'jtId':").append(jtId);
+        sb.append(",                 'isHead':").append(isHead);
+        sb.append(",                 'sysJtgxId':").append(sysJtgxId);
+        sb.append(",                 'sysJtgxName':'").append(sysJtgxName).append('\'');
+        sb.append(",                 'sysUserPhone2':'").append(sysUserPhone2).append('\'');
+        sb.append(",                 'userEmail':'").append(userEmail).append('\'');
+        sb.append(",                 'sex':'").append(sex).append('\'');
+        sb.append(",                 'birthday':").append(birthday);
+        sb.append(",                 'userState':").append(userState);
+        sb.append(",                 'address':'").append(address).append('\'');
+        sb.append(",                 'school':'").append(school).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }

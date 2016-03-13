@@ -76,6 +76,26 @@ public class WorkBookVo {
         this.res_id = res_id;
     }
 
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("WorkBookVo{");
+        sb.append("                'wb_lable_id':").append(wb_lable_id);
+        sb.append(",                 'user_id':").append(user_id);
+        sb.append(",                 'parent_id':").append(parent_id);
+        sb.append(",                 'label_name':'").append(label_name).append('\'');
+        sb.append(",                 'label_remark':'").append(label_remark).append('\'');
+        sb.append(",                 'res_id':").append(res_id);
+        sb.append(",                 'is_file':").append(is_file);
+        sb.append(",                 'create_at':").append(create_at);
+        sb.append(",                 'create_id':").append(create_id);
+        sb.append(",                 'update_at':").append(update_at);
+        sb.append(",                 'update_id':").append(update_id);
+        sb.append(",                 'state':").append(state);
+        sb.append(",                 'resFile':").append(resFile);
+        sb.append('}');
+        return sb.toString();
+    }
+
     public Integer getIs_file() {
         return is_file;
     }

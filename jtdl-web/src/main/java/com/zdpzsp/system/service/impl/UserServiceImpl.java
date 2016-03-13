@@ -5,6 +5,7 @@ import com.zdpzsp.frame.FrameConst;
 import com.zdpzsp.frame.ResultCode;
 import com.zdpzsp.frame.exception.DESDecryptException;
 import com.zdpzsp.frame.utils.DES;
+import com.zdpzsp.frame.utils.WebUtils;
 import com.zdpzsp.system.SystemConst;
 import com.zdpzsp.system.bo.*;
 import com.zdpzsp.system.exception.ServiceException;
@@ -20,6 +21,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
@@ -40,10 +42,21 @@ public class UserServiceImpl implements IUserService {
         String encrypt = DES.encrypt(sysPassword);
         registerUserVo.setSysPassword(encrypt);
         SysUser sysUser = new SysUser();
-        Object convert;
         BeanUtils.copyProperties(registerUserVo, sysUser);
+        if (hasUser(sysUser)) {
+            throw new ServiceException(ResultCode.user_account_has_err);
+        }
         sysUser.setState(SystemConst.GobalCfg.State.enable);
         sysUserMapper.insert(sysUser);
+    }
+    public boolean hasUser(SysUser sysUser) {
+        SysUserExample example=new SysUserExample();
+        example.or().andSysAccountEqualTo(sysUser.getSysAccount());
+        List<SysUser> sysUsers = sysUserMapper.selectByExample(example);
+        if (CollectionUtils.isEmpty(sysUsers)) {
+            return false;
+        }
+        return true;
     }
 
 //    http://localhost:8080/system/User!register?callback=jQuery214027138677798211575_1457794741861&registerUserVo%5BsysAccount%5D=123113&registerUserVo%5BsysPassword%5D=11111111&registerUserVo%5BuserEmail%5D=1032960260%40qq.com&_=1457794741863
@@ -166,10 +179,17 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void updateUser(UserInfoVo userInfoVo) {
+    public void updateUser(UserInfoVo userInfoVo, HttpServletRequest request) throws ServiceException {
         SysUser sysUser=new SysUser();
-        BeanUtils.copyProperties(userInfoVo, sysUser);
-
+        SysUser sysUser1 = WebUtils.getUserInfoVo(request).getSysUser();
+        if (userInfoVo.getSysUserId()!=null) {
+            BeanUtils.copyProperties(userInfoVo, sysUser);
+        } else if (sysUser1.getSysUserId() != null) {
+            BeanUtils.copyProperties(userInfoVo, sysUser);
+            sysUser.setSysUserId(sysUser1.getSysUserId());
+        }else {
+            throw new ServiceException(ResultCode.param_err);
+        }
         sysUserMapper.updateByPrimaryKeySelective(sysUser);
 
     }

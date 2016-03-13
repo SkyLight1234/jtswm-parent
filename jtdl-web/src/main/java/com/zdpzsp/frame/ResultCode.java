@@ -21,6 +21,7 @@ public enum  ResultCode{
     user_login_pass_no_eq(11003,"密码错误"),
     user_login_user_disable(11004,"用户不可用"),
     user_login_username_err(11005,"用户名不存在"),
+    user_account_has_err(11006,"该账号已经注册过" ),
         /*  user_login_no_menu(11006,"没有可用菜单"),
       user_role_insert_err(11007,"用户角色添加失败"),
       user_station_insert_err(11008,"用户岗位添加失败"),
