@@ -13,6 +13,7 @@ import java.util.Map;
 public class UserInfoUtil {
 
     private static Map<Long,SysRoles> sysRolesMap=new HashMap<Long,SysRoles>();//角色map   key为角色id
+
   /*  private static Map<Long,SysMenu> sysMenuMap=new HashMap<Long,SysMenu>();//菜单map key为菜单id
 
     private static Map<Long,SysStations> sysStationsMap=new HashMap<Long,SysStations>(); //岗位map key为岗位id
