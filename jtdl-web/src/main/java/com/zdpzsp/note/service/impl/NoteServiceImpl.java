@@ -28,7 +28,10 @@ public class NoteServiceImpl implements INoteService {
     private WorkBookLabelMapper workBookLabelMapper;
     private ResFileMapper resFileMapper;
     @Override
-    public List<WorkBookVo> getWorkBookLabelByUserId(Long userId) throws InvocationTargetException, IllegalAccessException {
+    public List<WorkBookVo> getWorkBookLabelByUserId(Long userId) throws InvocationTargetException, IllegalAccessException, ServiceException {
+        if (userId == null) {
+            throw new ServiceException(ResultCode.param_err);
+        }
         ResFileExample resFileExample = new ResFileExample();
         resFileExample.isDistinct();
         resFileExample.or();

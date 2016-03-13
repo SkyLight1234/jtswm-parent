@@ -673,6 +673,76 @@ public class ResFileExample {
             addCriterion("state not between", value1, value2, "state");
             return (Criteria) this;
         }
+
+        public Criteria andRes_file_suffixIsNull() {
+            addCriterion("res_file_suffix is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRes_file_suffixIsNotNull() {
+            addCriterion("res_file_suffix is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRes_file_suffixEqualTo(String value) {
+            addCriterion("res_file_suffix =", value, "res_file_suffix");
+            return (Criteria) this;
+        }
+
+        public Criteria andRes_file_suffixNotEqualTo(String value) {
+            addCriterion("res_file_suffix <>", value, "res_file_suffix");
+            return (Criteria) this;
+        }
+
+        public Criteria andRes_file_suffixGreaterThan(String value) {
+            addCriterion("res_file_suffix >", value, "res_file_suffix");
+            return (Criteria) this;
+        }
+
+        public Criteria andRes_file_suffixGreaterThanOrEqualTo(String value) {
+            addCriterion("res_file_suffix >=", value, "res_file_suffix");
+            return (Criteria) this;
+        }
+
+        public Criteria andRes_file_suffixLessThan(String value) {
+            addCriterion("res_file_suffix <", value, "res_file_suffix");
+            return (Criteria) this;
+        }
+
+        public Criteria andRes_file_suffixLessThanOrEqualTo(String value) {
+            addCriterion("res_file_suffix <=", value, "res_file_suffix");
+            return (Criteria) this;
+        }
+
+        public Criteria andRes_file_suffixLike(String value) {
+            addCriterion("res_file_suffix like", value, "res_file_suffix");
+            return (Criteria) this;
+        }
+
+        public Criteria andRes_file_suffixNotLike(String value) {
+            addCriterion("res_file_suffix not like", value, "res_file_suffix");
+            return (Criteria) this;
+        }
+
+        public Criteria andRes_file_suffixIn(List<String> values) {
+            addCriterion("res_file_suffix in", values, "res_file_suffix");
+            return (Criteria) this;
+        }
+
+        public Criteria andRes_file_suffixNotIn(List<String> values) {
+            addCriterion("res_file_suffix not in", values, "res_file_suffix");
+            return (Criteria) this;
+        }
+
+        public Criteria andRes_file_suffixBetween(String value1, String value2) {
+            addCriterion("res_file_suffix between", value1, value2, "res_file_suffix");
+            return (Criteria) this;
+        }
+
+        public Criteria andRes_file_suffixNotBetween(String value1, String value2) {
+            addCriterion("res_file_suffix not between", value1, value2, "res_file_suffix");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

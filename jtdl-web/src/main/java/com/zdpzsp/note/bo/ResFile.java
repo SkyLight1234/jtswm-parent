@@ -19,6 +19,8 @@ public class ResFile {
 
     private Integer state;
 
+    private String res_file_suffix;
+
     public Long getRes_id() {
         return res_id;
     }
@@ -89,5 +91,13 @@ public class ResFile {
 
     public void setState(Integer state) {
         this.state = state;
+    }
+
+    public String getRes_file_suffix() {
+        return res_file_suffix;
+    }
+
+    public void setRes_file_suffix(String res_file_suffix) {
+        this.res_file_suffix = res_file_suffix == null ? null : res_file_suffix.trim();
     }
 }
