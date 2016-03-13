@@ -15,9 +15,11 @@ public class SystemListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         WebApplicationContext applicationContext= WebApplicationContextUtils.getWebApplicationContext(sce.getServletContext());
-//        applicationContext.getServletContext().getRealPath(/)
+        String realPath = applicationContext.getServletContext().getRealPath("/");
+        UserInfoUtil.initSysPath(realPath);//保存项目的绝对路径
         IUserService userService=applicationContext.getBean("userService",IUserService.class);
         UserInfoUtil.init(userService);
+
     }
 
     @Override

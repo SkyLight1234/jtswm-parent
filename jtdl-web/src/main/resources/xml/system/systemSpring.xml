@@ -13,6 +13,7 @@
 	<bean id="userService" class="com.zdpzsp.system.service.impl.UserServiceImpl">
 		<property name="sysUserMapper" ref="sysUserMapper"/>
 		<property name="sysRolesMapper" ref="sysRolesMapper"/>
+		<property name="sysHostMapper" ref="sysHostMapper"/>
 	</bean>
 
 </beans>

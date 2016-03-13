@@ -1,5 +1,6 @@
 package com.zdpzsp.system.service;
 
+import com.zdpzsp.system.bo.SysHost;
 import com.zdpzsp.system.bo.SysRoles;
 import com.zdpzsp.system.exception.ServiceException;
 import com.zdpzsp.system.vo.RegisterUserVo;
@@ -20,4 +21,6 @@ public interface IUserService {
     Map<Long,SysRoles> getSysRolesMap(Integer enable);
 
     void updateUser(UserInfoVo userInfoVo);
+
+    Map<String, SysHost> getCurrentHost(Integer enable);
 }

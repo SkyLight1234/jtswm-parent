@@ -1,6 +1,7 @@
 package com.zdpzsp.system.utils;
 
 import com.zdpzsp.system.SystemConst;
+import com.zdpzsp.system.bo.SysHost;
 import com.zdpzsp.system.bo.SysRoles;
 import com.zdpzsp.system.service.IUserService;
 
@@ -12,8 +13,11 @@ import java.util.Map;
  */
 public class UserInfoUtil {
 
-    private static Map<Long,SysRoles> sysRolesMap=new HashMap<Long,SysRoles>();//角色map   key为角色id
+    private static Map<Long, SysRoles> sysRolesMap = new HashMap<Long, SysRoles>();//角色map   key为角色id
 
+    private static Map<String, SysHost> syshostMap = new HashMap<>();  //初始化相对地址和ip
+
+    public static String realPath = "";
   /*  private static Map<Long,SysMenu> sysMenuMap=new HashMap<Long,SysMenu>();//菜单map key为菜单id
 
     private static Map<Long,SysStations> sysStationsMap=new HashMap<Long,SysStations>(); //岗位map key为岗位id
@@ -25,9 +29,10 @@ public class UserInfoUtil {
     private static Map<Long,Set<Long>> sysStationsRepIdMap=new HashMap<Long,Set<Long>>(); //岗位对报表id 的map  key为岗位id*/
 
 
-    public static void init(IUserService userService)
-    {
-        sysRolesMap=userService.getSysRolesMap(SystemConst.GobalCfg.State.enable);
+    public static void init(IUserService userService) {
+        sysRolesMap = userService.getSysRolesMap(SystemConst.GobalCfg.State.enable);
+        syshostMap=userService.getCurrentHost(SystemConst.GobalCfg.State.enable);
+
         /*sysMenuMap=userService.getSysMenusMap(SystemConst.SysMenuConst.menu_state.enabled);
 
         sysStationsMap=userService.getSysStationsMap(SystemConst.SysStations.IsUsed.yes);
@@ -36,6 +41,10 @@ public class UserInfoUtil {
         sysRolesMenu=packageSysRolesMenu(userService);
         sysStationsOrganization=packageSysStationsOrganization(userService);
         sysStationsRepIdMap=packageSysStationsRepIdMap(userService);*/
+    }
+
+    public static void initSysPath(String realPath) {
+        UserInfoUtil.realPath=realPath;
     }
 
     /**
@@ -307,7 +316,6 @@ public class UserInfoUtil {
        System.out.println(1);
 
     }*/
-
 
 
 }

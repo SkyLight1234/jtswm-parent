@@ -110,5 +110,7 @@ public class IpUtil {
         System.out.println("baidu : " + baidu);
         System.out.println("baidu IP: " + baidu.getHostAddress());
         System.out.println("baidu HostName: " + baidu.getHostName());
+
+//        AppletContext appletContext = WebApplicationContextUtils.getWebApplicationContext(sce.getServletContext());;
     }
 }

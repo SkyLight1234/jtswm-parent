@@ -9,7 +9,9 @@ import com.zdpzsp.system.SystemConst;
 import com.zdpzsp.system.bo.*;
 import com.zdpzsp.system.exception.ServiceException;
 import com.zdpzsp.system.service.IUserService;
+import com.zdpzsp.system.utils.IpUtil;
 import com.zdpzsp.system.utils.MailUtil;
+import com.zdpzsp.system.utils.UserInfoUtil;
 import com.zdpzsp.system.utils.vo.EmailContent;
 import com.zdpzsp.system.vo.RegisterUserVo;
 import com.zdpzsp.system.vo.UserInfoVo;
@@ -20,6 +22,7 @@ import org.springframework.util.StringUtils;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +33,7 @@ public class UserServiceImpl implements IUserService {
 
     private SysUserMapper sysUserMapper;
     private SysRolesMapper sysRolesMapper;
-
+    private SysHostMapper sysHostMapper;
     @Override
     public void register(RegisterUserVo registerUserVo) throws Exception {
         String sysPassword = registerUserVo.getSysPassword();
@@ -168,6 +171,35 @@ public class UserServiceImpl implements IUserService {
 
     }
 
+    @Override
+    public Map<String, SysHost> getCurrentHost(Integer enable) {
+
+        SysHost localhost = this.getLocalhost(IpUtil.getLocalHostIP());
+        if (localhost == null) {
+            localhost=new SysHost();
+            localhost.setState(SystemConst.GobalCfg.State.enable);
+            localhost.setCreate_at(System.currentTimeMillis());
+            localhost.setSys_host_name(IpUtil.getLocalHostName());
+            localhost.setHost_ip(IpUtil.getLocalHostIP());
+            localhost.setHost_type(SystemConst.SYS_HOST.HOST_TYPE.value);
+            localhost.setSys_host_head(UserInfoUtil.realPath);
+            sysHostMapper.insert(localhost);
+        }
+        Map<String, SysHost> map = new HashMap<String, SysHost>();
+        map.put(IpUtil.getLocalHostIP(), localhost);
+        return map;
+    }
+
+    private SysHost getLocalhost(String hostip) {
+        SysHostExample example=new SysHostExample();
+        example.or().andHost_ipEqualTo(hostip);
+        example.setDistinct(true);
+        List<SysHost> sysHosts = sysHostMapper.selectByExample(example);
+        if (!CollectionUtils.isEmpty(sysHosts)) {
+            return sysHosts.get(0);
+        }
+        return null;
+    }
 
     public SysUserMapper getSysUserMapper() {
         return sysUserMapper;
@@ -183,5 +215,13 @@ public class UserServiceImpl implements IUserService {
 
     public void setSysRolesMapper(SysRolesMapper sysRolesMapper) {
         this.sysRolesMapper = sysRolesMapper;
+    }
+
+    public SysHostMapper getSysHostMapper() {
+        return sysHostMapper;
+    }
+
+    public void setSysHostMapper(SysHostMapper sysHostMapper) {
+        this.sysHostMapper = sysHostMapper;
     }
 }
